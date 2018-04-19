@@ -1,0 +1,39 @@
+{
+	// 使用 IntelliSense 以得知可用的屬性。
+	// 暫留以檢視現有屬性的描述。
+	// 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "(gdb) Launch",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/hello.c",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": true,
+			"linux": {
+				"MIMode": "gdb",
+				"miDebuggerPath":"/usr/bin/gdb"
+			},
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			],
+			"logging": {
+				"exceptions": true,
+				"moduleLoad": true,
+				"programOutput": true,
+				"engineLogging": false,
+				"trace": true,
+				"traceResponse": false
+			},
+			"preLaunchTask": "build"
+		}
+	]
+}
