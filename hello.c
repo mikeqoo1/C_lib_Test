@@ -8,3 +8,7 @@ int main()
 	printf("Hello Word!! %d\n",l);
 	return 0;
 }
+
+voide test(){
+	//未來補上
+}
