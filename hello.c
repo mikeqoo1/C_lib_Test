@@ -9,6 +9,6 @@ int main()
 	return 0;
 }
 
-voide test(){
+void test(){
 	//未來補上
 }
