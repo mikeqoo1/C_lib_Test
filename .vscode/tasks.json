@@ -6,7 +6,7 @@
 		{
 			"label": "build",
 			"type": "shell",
-			"command": "gcc hello.c -o hello -Wall",
+			"command": "gcc -g -Wall main.c mocha.c -o mainexe",
 			"args": [],
 			"group": {
 				"kind": "build",
