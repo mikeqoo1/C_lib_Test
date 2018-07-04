@@ -5,8 +5,6 @@
  * under the terms of the MIT license. See LICENSE for details.
  */
 
-12123131321321
-
 #include <stdlib.h>
 #include <string.h>
 #include "map.h"
