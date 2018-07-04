@@ -6,9 +6,7 @@
 	"configurations": [
 		{
 			"name": "(gdb) Launch",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/hello.c",
+			"program": "${workspaceFolder}/main.c",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
