@@ -9,7 +9,8 @@ int delete(const char *key) {
 	ENTRY e = {key: (char *)key}, *p;
 	p = hsearch(e, FIND);
 	if (p) {
-		free((char*)key);
+		p->key="NULL";
+		p->data="NULL";
 		return 1;
 	} else
 		return 0;
