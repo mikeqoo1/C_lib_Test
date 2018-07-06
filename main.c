@@ -67,6 +67,11 @@ int main()
 	store("white", "白色");
 	store("black", "黑色");
 	store("orange", "橘色"); //會覆蓋前面的value
+	store("123456", (void *)555777888999);
+	if (fetch("123456", &value))
+			printf("123456 has value %d\n", (int *)value);
+		else
+			printf("123456 is not in table\n");
 
 	printf("印出結果\n");
 	for (i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
@@ -83,6 +88,11 @@ int main()
 		else
 			printf("%s is not in table\n", keys[i]);
 	}
+	delete("123456");
+	if (fetch("123456", &value))
+			printf("123456 has value %d\n", (int *)value);
+		else
+			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
 	return 0;
 }
