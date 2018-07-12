@@ -2,6 +2,7 @@
 #include "mocha.h"
 #include "map.h"
 #include "cmap.h"
+#include "csplit.h"
 
 int test1()
 {
@@ -94,5 +95,13 @@ int main()
 		else
 			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
+
+	char str[] = "hello\nworld\n1024";
+    char *parts[8];
+    size_t size = strsplit(str, parts, "\n");
+    int z = 0;
+    for (; z < size; ++z) {
+        printf("%s\n", parts[z]);
+    }
 	return 0;
 }
