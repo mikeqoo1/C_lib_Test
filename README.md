@@ -1,5 +1,5 @@
-# VsCodeToC
-測試vscode編譯C
+# C_Lib_Test
+測試C的小功能,小東西
 
 
 # Clib
