@@ -26,6 +26,7 @@ int test2()
 
 int main()
 {
+//----mocha
 	printf("----mocha的範例----\n");
 	describe(
 		"Test Example",
@@ -33,7 +34,9 @@ int main()
 		test2
 		);
 	printf("----mocha的範例----\n");
+//----mocha
 
+//----git map
 	printf("----git上別人的map分隔----\n");
 	map_int_t m;
 	map_init(&m);
@@ -52,7 +55,9 @@ int main()
 		printf("value not found\n");
 	}
 	printf("----git上別人的map分隔----\n");
+//----git map
 
+//----cmap
 	printf("----我自己寫的map分隔----\n");
 	static const char *const keys[] =
 		{"red", "orange", "yellow", "green", "blue", "white", "black"};
@@ -95,13 +100,19 @@ int main()
 		else
 			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
+//----cmap
 
-	char str[] = "hello\nworld\n1024";
-    char *parts[8];
-    size_t size = strsplit(str, parts, "\n");
-    int z = 0;
-    for (; z < size; ++z) {
-        printf("%s\n", parts[z]);
-    }
+//----csplit
+	printf("----csplit分隔----\n");
+	char str[] = "hello@nworld@1024@QAQ@789555@127WWW@n@";
+	char *ans[8];
+	size_t size = strsplit(str, ans, "@");
+	int z = 0;
+	printf("原本的str===>%s\n",str);
+	for (; z < size; ++z) {
+		printf("分割後:第%d個:%s\n", z, ans[z]);
+	}
+	printf("----csplit分隔----\n");
+//----csplit
 	return 0;
 }
