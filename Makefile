@@ -1,7 +1,7 @@
 vpath %.h clib  #vpath 指定搜尋路徑
 vpath %.c clib
 
-objects = cmap.o map.o mocha.o
+objects = cmap.o map.o mocha.o csplit.o
 test: main.c $(objects)
 	gcc -I clib $^ -o test -lcheck -lm
 
