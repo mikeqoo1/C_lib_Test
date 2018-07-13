@@ -105,7 +105,7 @@ int main()
 //----csplit
 	printf("----csplit分隔----\n");
 	char str[] = "hello@nworld@1024@QAQ@789555@127WWW@n@";
-	char *ans[8];
+	char *ans[8]; //這邊未來可以動態設定,再做優化
 	size_t size = strsplit(str, ans, "@");
 	int z = 0;
 	printf("原本的str===>%s\n",str);
