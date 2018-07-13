@@ -104,12 +104,13 @@ int main()
 
 //----csplit
 	printf("----csplit分隔----\n");
-	char str[] = "hello\nworld\n1024\nQAQ\n789555\n127WWW\n";
+	char str[] = "hello@nworld@1024@QAQ@789555@127WWW@n@";
 	char *ans[8];
-	size_t size = strsplit(str, ans, "\n");
+	size_t size = strsplit(str, ans, "@");
 	int z = 0;
+	printf("原本的str===>%s\n",str);
 	for (; z < size; ++z) {
-		printf("%s\n", ans[z]);
+		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
 	printf("----csplit分隔----\n");
 //----csplit
