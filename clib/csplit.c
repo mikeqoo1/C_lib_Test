@@ -3,7 +3,7 @@
 #include "csplit.h"
 
 int strsplit (const char *str, char *ans[], const char *delimiter) {
-	char *pch;
+	char *cut_str; //切割後字串
 	int i = 0;
 	char *copy = NULL;
 	char *tmp = NULL;
@@ -17,19 +17,19 @@ int strsplit (const char *str, char *ans[], const char *delimiter) {
 	if (!copy)
 		goto bad; //這個一定要用free(),釋放記憶體空間
 
-	pch = strtok(copy, delimiter);
+	cut_str = strtok(copy, delimiter);
 
-	tmp = strdup(pch);
+	tmp = strdup(cut_str);
 	if (!tmp)
 		goto bad;
 
 	ans[i++] = tmp;
 
-	while (pch) {
-		pch = strtok(NULL, delimiter);
-		if (NULL == pch)
+	while (cut_str) {
+		cut_str = strtok(NULL, delimiter);
+		if (NULL == cut_str)
 			break;
-		tmp = strdup(pch);
+		tmp = strdup(cut_str);
 		if (!tmp)
 			goto bad;
 		ans[i++] = tmp;
