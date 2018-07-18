@@ -105,14 +105,23 @@ int main()
 //----csplit
 	printf("----csplit分隔----\n");
 	int z;
-	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****Crrry****";
+	int x;
+	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****CrrryAND";
+	char str2[] = "KD****Ray****Ruby****EZ****Jack****MJ****PG****";
 	//判斷剩下的
 	char *ans[100]; //這邊未來可以動態設定,再做優化
+	char *ans2[100];
 	size_t size = strsplit(str, ans, "****");
 	printf("原本的str===>%s\n",str);
 	for (z = 0; z < size; ++z) {
 		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
+	size_t size2 = strsplit(str2, ans2, "****");
+	printf("原本的str2===>%s\n",str2);
+	for (x = 0; x < size2; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans2[x]);
+	}
+	
 	// if(find_the_rest(str,"****")) {
 	// 	printf("代表有剩餘\n");
 	// } else{
