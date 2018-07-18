@@ -2,6 +2,7 @@
 #include "mocha.h"
 #include "map.h"
 #include "cmap.h"
+#include "csplit.h"
 
 int test1()
 {
@@ -25,6 +26,7 @@ int test2()
 
 int main()
 {
+//----mocha
 	printf("----mocha的範例----\n");
 	describe(
 		"Test Example",
@@ -32,7 +34,9 @@ int main()
 		test2
 		);
 	printf("----mocha的範例----\n");
+//----mocha
 
+//----git map
 	printf("----git上別人的map分隔----\n");
 	map_int_t m;
 	map_init(&m);
@@ -51,7 +55,9 @@ int main()
 		printf("value not found\n");
 	}
 	printf("----git上別人的map分隔----\n");
+//----git map
 
+//----cmap
 	printf("----我自己寫的map分隔----\n");
 	static const char *const keys[] =
 		{"red", "orange", "yellow", "green", "blue", "white", "black"};
@@ -67,6 +73,11 @@ int main()
 	store("white", "白色");
 	store("black", "黑色");
 	store("orange", "橘色"); //會覆蓋前面的value
+	store("123456", (void *)555777888999);
+	if (fetch("123456", &value))
+			printf("123456 has value %d\n", (int *)value);
+		else
+			printf("123456 is not in table\n");
 
 	printf("印出結果\n");
 	for (i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
@@ -83,6 +94,40 @@ int main()
 		else
 			printf("%s is not in table\n", keys[i]);
 	}
+	delete("123456");
+	if (fetch("123456", &value))
+			printf("123456 has value %d\n", (int *)value);
+		else
+			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
+//----cmap
+
+//----csplit
+	printf("----csplit分隔----\n");
+	int z;
+	int x;
+	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****CrrryAND";
+	char str2[] = "KD****Ray****Ruby****EZ****Jack****MJ****PG****";
+	//判斷剩下的
+	char *ans[100]; //這邊未來可以動態設定,再做優化
+	char *ans2[100];
+	size_t size = strsplit(str, ans, "****");
+	printf("原本的str===>%s\n",str);
+	for (z = 0; z < size; ++z) {
+		printf("分割後:第%d個:%s\n", z, ans[z]);
+	}
+	size_t size2 = strsplit(str2, ans2, "****");
+	printf("原本的str2===>%s\n",str2);
+	for (x = 0; x < size2; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans2[x]);
+	}
+	
+	// if(find_the_rest(str,"****")) {
+	// 	printf("代表有剩餘\n");
+	// } else{
+	// 	printf("代表沒有剩餘\n");
+	// }
+	printf("----csplit分隔----\n");
+//----csplit
 	return 0;
 }

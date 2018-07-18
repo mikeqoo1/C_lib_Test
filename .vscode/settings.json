@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "type_traits": "c"
+        "Makefile": "makefile",
+        "type_traits": "c",
+        "stdlib.h": "c",
+        "initializer_list": "c"
     }
 }

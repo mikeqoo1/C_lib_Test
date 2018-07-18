@@ -14,4 +14,4 @@ int delete(const char *key);
 int fetch(const char *key, intptr_t *value);
 
 //設定key,value
-void store(const char *key, char *value);
+void store(const char *key, void *value);

@@ -9,8 +9,8 @@ int delete(const char *key) {
 	ENTRY e = {key: (char *)key}, *p;
 	p = hsearch(e, FIND);
 	if (p) {
-		p->key="NULL";
-		p->data="NULL";
+		p->key="NULL"; //key不能指向空指標
+		p->data=NULL;
 		return 1;
 	} else
 		return 0;
@@ -26,7 +26,7 @@ int fetch(const char *key, intptr_t *value) {
 		return 0;
 }
 
-void store(const char *key, char *value) {
+void store(const char *key, void *value) {
 	ENTRY e = {key: (char *)key}, *p;
 	p = hsearch(e, ENTER);
 	if (p == NULL)
