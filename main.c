@@ -104,14 +104,20 @@ int main()
 
 //----csplit
 	printf("----csplit分隔----\n");
-	char str[] = "hello@nworld@1024@QAQ@789555@127WWW@n@888888";
+	int z;
+	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****Crrry****";
+	//判斷剩下的
 	char *ans[100]; //這邊未來可以動態設定,再做優化
-	size_t size = strsplit(str, ans, "@");
-	int z = 0;
+	size_t size = strsplit(str, ans, "****");
 	printf("原本的str===>%s\n",str);
-	for (; z < size; ++z) {
+	for (z = 0; z < size; ++z) {
 		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
+	// if(find_the_rest(str,"****")) {
+	// 	printf("代表有剩餘\n");
+	// } else{
+	// 	printf("代表沒有剩餘\n");
+	// }
 	printf("----csplit分隔----\n");
 //----csplit
 	return 0;
