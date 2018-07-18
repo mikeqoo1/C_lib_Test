@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "csplit.h"
 static char *THE_REST_STR = NULL;
@@ -16,7 +17,11 @@ int strsplit (const char *str, char *ans[], const char *delimiter) {
 	*/
 	copy_str = strdup(str);
 	if (THE_REST_STR != NULL) {
-		strcat(copy_str,THE_REST_STR); //接起剩餘字串
+		printf("剩餘字串 %s\n", THE_REST_STR);
+		strcat(THE_REST_STR, copy_str); //接起剩餘字串
+		printf("接起來的樣子 %s\n", THE_REST_STR);
+		copy_str=strdup(THE_REST_STR);
+		printf("把接起來的給copy_str %s\n", copy_str);
 	}
 	cut_str = strstr(copy_str, delimiter);
 	printf("copy_str = %s 大小 = %d\ncut_str = %s 大小 = %d\n",copy_str, strlen(copy_str), cut_str, strlen(cut_str));

@@ -2,6 +2,7 @@
     "files.associations": {
         "Makefile": "makefile",
         "type_traits": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "initializer_list": "c"
     }
 }
