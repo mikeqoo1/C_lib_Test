@@ -105,24 +105,19 @@ int main()
 //----csplit
 	printf("----csplit分隔----\n");
 	int z;
-	char str[] = "hello\r\nnworld\r\n1024\r\nQAQ\r\n789555\r\n127WWW\r\nnWWWWWQ\r\n888895ZZ";
+	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****Crrry****";
 	//判斷剩下的
 	char *ans[100]; //這邊未來可以動態設定,再做優化
-	if(find_the_rest(str,"\r\n")) {
-		printf("代表有剩餘\n");
-		size_t size = strsplit(str, ans, "\r\n");
-		printf("原本的str===>%s\n",str);
-		for (z = 0; z < size; ++z) {
-			printf("分割後:第%d個:%s\n", z, ans[z]);
-		}
-	} else{
-		printf("代表沒有剩餘\n");
-		size_t size = strsplit(str, ans, "\r\n");
-		printf("原本的str===>%s\n",str);
-		for (z = 0; z < size; ++z) {
-			printf("分割後:第%d個:%s\n", z, ans[z]);
-		}
+	size_t size = strsplit(str, ans, "****");
+	printf("原本的str===>%s\n",str);
+	for (z = 0; z < size; ++z) {
+		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
+	// if(find_the_rest(str,"****")) {
+	// 	printf("代表有剩餘\n");
+	// } else{
+	// 	printf("代表沒有剩餘\n");
+	// }
 	printf("----csplit分隔----\n");
 //----csplit
 	return 0;
