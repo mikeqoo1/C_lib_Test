@@ -7,7 +7,7 @@ debug: main.c $(objects)
 
 all: $(objects)
 $(objects): %.o: %.c
-	gcc -c -I -g clib $< -o $@
+	gcc -c -I clib $< -o $@ -g
 .PHONY: clean debug all
 clean:
 	rm *.o test
