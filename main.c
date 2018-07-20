@@ -26,7 +26,7 @@ int test2()
 
 int main()
 {
-	/*
+
 //----mocha
 	printf("----mocha的範例----\n");
 	describe(
@@ -76,7 +76,7 @@ int main()
 	store("orange", "橘色"); //會覆蓋前面的value
 	store("123456", (void *)555777888999);
 	if (fetch("123456", &value))
-			printf("123456 has value %d\n", (int *)value);
+			printf("123456 has value %d\n", (int)value);
 		else
 			printf("123456 is not in table\n");
 
@@ -97,12 +97,12 @@ int main()
 	}
 	delete("123456");
 	if (fetch("123456", &value))
-			printf("123456 has value %d\n", (int *)value);
+			printf("123456 has value %d\n", (int)value);
 		else
 			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
 //----cmap
-	*/
+
 //----csplit
 	printf("----csplit分隔----\n");
 	int z;
@@ -112,10 +112,10 @@ int main()
 	//判斷剩下的
 	char *ans[16]; //這邊未來可以動態設定,再做優化
 	char *ans2[16];
-	int i = 0;
-	for (; i < 16 ;i++){
-		ans[i] = (char *)malloc(128);
-		ans2[i] = (char *)malloc(128);
+	int i_csp = 0;
+	for (; i_csp < 16 ; i_csp++){
+		ans[i_csp] = (char *)malloc(128);
+		ans2[i_csp] = (char *)malloc(128);
 	}
 	size_t size = strsplit(str, ans, "****");
 	printf("原本的str===>%s\n",str);
