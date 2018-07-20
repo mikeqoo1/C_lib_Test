@@ -26,6 +26,7 @@ int test2()
 
 int main()
 {
+	/*
 //----mocha
 	printf("----mocha的範例----\n");
 	describe(
@@ -101,7 +102,7 @@ int main()
 			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
 //----cmap
-
+	*/
 //----csplit
 	printf("----csplit分隔----\n");
 	int z;
@@ -109,8 +110,13 @@ int main()
 	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****CrrryAND";
 	char str2[] = "KD****Ray****Ruby****EZ****Jack****MJ****PG****";
 	//判斷剩下的
-	char *ans[100]; //這邊未來可以動態設定,再做優化
-	char *ans2[100];
+	char *ans[16]; //這邊未來可以動態設定,再做優化
+	char *ans2[16];
+	int i = 0;
+	for (; i < 16 ;i++){
+		ans[i] = (char *)malloc(128);
+		ans2[i] = (char *)malloc(128);
+	}
 	size_t size = strsplit(str, ans, "****");
 	printf("原本的str===>%s\n",str);
 	for (z = 0; z < size; ++z) {
