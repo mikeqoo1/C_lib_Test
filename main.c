@@ -107,28 +107,42 @@ int main()
 	printf("----csplit分隔----\n");
 	int z;
 	int x;
-	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****CrrryAND";
-	char str2[] = "KD****Ray****Ruby****EZ****Jack****MJ****PG****";
-	//判斷剩下的
-	char *ans[16]; //這邊未來可以動態設定,再做優化
+	char str[] = "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry AND "; //尾端剩餘
+	char str2[] = "KD\r\nRay\r\nRuby\r\nEZ\r\nJack\r\nMJ\r\nPG\r\n"; //正常
+	char str3[] = "Kobe"; //單一剩餘的情況
+	char str4[] = " Bryant\r\n";
+	char *ans[16];
 	char *ans2[16];
+	char *ans3[16];
+	char *ans4[16];
 	int i_csp = 0;
 	for (; i_csp < 16 ; i_csp++){
 		ans[i_csp] = (char *)malloc(128);
 		ans2[i_csp] = (char *)malloc(128);
+		ans3[i_csp] = (char *)malloc(128);
+		ans4[i_csp] = (char *)malloc(128);
 	}
-	size_t size = strsplit(str, ans, "****");
-	printf("原本的str===>%s\n",str);
+	size_t size = strsplit(str, ans, "\r\n");
+	printf("尾端剩餘\n");
 	for (z = 0; z < size; ++z) {
 		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
-	size_t size2 = strsplit(str2, ans2, "****");
-	printf("原本的str2===>%s\n",str2);
+	size_t size2 = strsplit(str2, ans2, "\r\n");
+	printf("尾端剩餘+正常\n");
 	for (x = 0; x < size2; ++x) {
 		printf("分割後:第%d個:%s\n", x, ans2[x]);
 	}
-	
-	// if(find_the_rest(str,"****")) {
+	size_t size3 = strsplit(str3, ans3, "\r\n");
+	printf("單一剩餘\n");
+	for (x = 0; x < size3; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans3[x]);
+	}
+	size_t size4 = strsplit(str4, ans4, "\r\n");
+	printf("單一剩餘+正常\n");
+	for (x = 0; x < size4; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans4[x]);
+	}
+	// if(find_the_rest(str,"\r\n")) {
 	// 	printf("代表有剩餘\n");
 	// } else{
 	// 	printf("代表沒有剩餘\n");
