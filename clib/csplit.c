@@ -11,21 +11,21 @@ int strsplit (const char *str, char *ans[], const char *delimiter) {
 	char *cut_str;
 	int index = 0;
 	cut_str = strstr(All_Str, delimiter);
-	if (cut_str == NULL) { //代表是剩餘字串,不然早就切了
+	if (cut_str == NULL) { //代表,這包第一次切就是斷包的情況
 		strcpy(ans[index++], All_Str);
 		strcpy(THE_REST_STR, All_Str);
 	} else {
 		strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
-	}
-	while (cut_str != NULL) {
-		cut_str[0]='\0'; //讓上一個找到的符號改成結束字元
-		All_Str = cut_str + strlen(delimiter); //接起來,再繼續找
-		cut_str = strstr(All_Str, delimiter);
-		if (cut_str == NULL) { //代表是最後一個字串,一定是剩餘字串,不然早就切了
-			strcpy(ans[index++], All_Str);
-			strcpy(THE_REST_STR, All_Str);
-		} else {
-			strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
+		while (cut_str != NULL) {
+			cut_str[0]='\0'; //讓上一個找到的符號改成結束字元
+			All_Str = cut_str + strlen(delimiter); //接起來,再繼續找
+			cut_str = strstr(All_Str, delimiter);
+			if (cut_str == NULL) { //代表是最後一個字串,一定是剩餘字串,不然早就切了
+				strcpy(ans[index++], All_Str);
+				strcpy(THE_REST_STR, All_Str);
+			} else {
+				strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
+			}
 		}
 	}
 	free(ptr);
