@@ -24,12 +24,13 @@ int test2() {
 
 struct PokeMon {
 	size_t size;
-	void (*gomap)(size_t size);
+	void (*create)(size_t size);
 	int (*delete)(const char *key);
 	int (*fetch)(const char *key, intptr_t *value);
 	void (*store)(const char *key, void *value);
 };
 
+/*
 void Oo_gomap(size_t size){
 	hcreate(size);
 }
@@ -62,12 +63,13 @@ void Oo_store(const char *key, void *value) {
 		fail("hsearch");
 	p->data = (void *)value;
 }
+*/
 
 void PokeMonNew(struct PokeMon *obj,size_t size) {
-	obj-> gomap = Oo_gomap;
-	obj-> delete = Oo_delete;
-	obj-> fetch = Oo_fetch;
-	obj-> store = Oo_store;
+	obj-> create = createmap;
+	obj-> delete = delete;
+	obj-> fetch = fetch;
+	obj-> store = store;
 	obj-> size = size;
 }
 
@@ -196,15 +198,34 @@ int main() {
 	printf("----csplit分隔----\n");
 //----csplit
 
-//----OO
+//----C Object Oriented
+	intptr_t pokemon;
 	struct PokeMon Charizard;
-	PokeMonNew(&Charizard,10);
-	Charizard.gomap(Charizard.size);
-	Charizard.store("red", "紅色");
-	if (fetch("red", &value))
-		printf("has value %s\n", (char *)value);
+	PokeMonNew(&Charizard,50);
+	Charizard.create(Charizard.size);
+	printf("Charizard.size = %ld\n",Charizard.size);
+	Charizard.store("噴火龍", "名稱:噴火龍 等級:100 主人:Mike 招式:噴射火焰 超進化:可以");
+
+	struct PokeMon Cyndaquil;
+	PokeMonNew(&Cyndaquil,100);
+	Cyndaquil.create(Cyndaquil.size);
+	printf("Cyndaquil.size = %ld\n",Cyndaquil.size);
+	Cyndaquil.store("火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
+
+	if (Charizard.fetch("噴火龍", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
 	else
-		printf("is not in table\n");
-//----OO
+		printf("找不到噴火龍\n");
+
+	if (Cyndaquil.fetch("火球鼠", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
+	else
+		printf("找不到火球鼠\n");
+
+	if (Cyndaquil.fetch("未知圖騰", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
+	else
+		printf("找不到未知圖騰\n");
+//----C Object Oriented
 	return 0;
 }
