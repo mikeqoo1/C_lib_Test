@@ -4,8 +4,7 @@
 #include "cmap.h"
 #include "csplit.h"
 
-int test1()
-{
+int test1() {
 	int i = 4;
 	int j = 4;
 	// void assert(expression);
@@ -15,8 +14,7 @@ int test1()
 	return 0;
 }
 
-int test2()
-{
+int test2() {
 	int l = 12;
 
 	assert(l == 12)
@@ -24,8 +22,56 @@ int test2()
 	return 0;
 }
 
-int main()
-{
+struct PokeMon {
+	size_t size;
+	void (*gomap)(size_t size);
+	int (*delete)(const char *key);
+	int (*fetch)(const char *key, intptr_t *value);
+	void (*store)(const char *key, void *value);
+};
+
+void Oo_gomap(size_t size){
+	hcreate(size);
+}
+
+int Oo_delete(const char *key) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, FIND);
+	if (p) {
+		p->key="NULL"; //key不能指向空指標
+		p->data=NULL;
+		return 1;
+	} else
+		return 0;
+}
+
+int Oo_fetch(const char *key, intptr_t *value) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, FIND);
+	if (p) {
+		*value = (intptr_t)p->data;
+		return 1;
+	} else
+		return 0;
+}
+
+void Oo_store(const char *key, void *value) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, ENTER);
+	if (p == NULL)
+		fail("hsearch");
+	p->data = (void *)value;
+}
+
+void PokeMonNew(struct PokeMon *obj,size_t size) {
+	obj-> gomap = Oo_gomap;
+	obj-> delete = Oo_delete;
+	obj-> fetch = Oo_fetch;
+	obj-> store = Oo_store;
+	obj-> size = size;
+}
+
+int main() {
 
 //----mocha
 	printf("----mocha的範例----\n");
@@ -149,5 +195,16 @@ int main()
 	// }
 	printf("----csplit分隔----\n");
 //----csplit
+
+//----OO
+	struct PokeMon Charizard;
+	PokeMonNew(&Charizard,10);
+	Charizard.gomap(Charizard.size);
+	Charizard.store("red", "紅色");
+	if (fetch("red", &value))
+		printf("has value %s\n", (char *)value);
+	else
+		printf("is not in table\n");
+//----OO
 	return 0;
 }
