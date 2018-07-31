@@ -7,6 +7,9 @@
 
 void fail(char *message);
 
+//新增
+void createmap(size_t size);
+
 //刪除
 int delete(const char *key);
 
