@@ -12,6 +12,8 @@ map ---> github https://github.com/rxi/map 提供
 
 mocha ---> 彩色的單元測試框架
 
+增加類似用結構的方法,實作C++的OO設計
+
 # 注意事項
 
 cmap的key,一定不能指向一個空的pointer,會出錯
