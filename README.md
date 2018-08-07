@@ -12,8 +12,15 @@ map ---> github https://github.com/rxi/map 提供
 
 mocha ---> 彩色的單元測試框架
 
+增加類似用結構的方法,實作C++的OO設計
+
 # 注意事項
 
 cmap的key,一定不能指向一個空的pointer,會出錯
 
-csplit,本來是使用strtok來作的,但是,strtok會把要切的符號,個別判斷,例如 \r\n只要是 \r或\n 就切掉了
+csplit,本來是使用strtok來作的,但是,strtok會把要切的符號個別判斷,例如 \r\n只要是 \r或\n 就切掉了
+新增加判斷,假設第一包就是斷包的情況,也可以處理
+
+# 尚缺項目
+
+各部份的單元測試,需要補上
