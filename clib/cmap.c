@@ -5,6 +5,11 @@ void fail(char *message) {
 	exit(1);
 }
 
+void createmap(size_t size) {
+	if (hcreate(size) == 0)
+		fail("hcreate fail");
+}
+
 int delete(const char *key) {
 	ENTRY e = {key: (char *)key}, *p;
 	p = hsearch(e, FIND);

@@ -4,8 +4,7 @@
 #include "cmap.h"
 #include "csplit.h"
 
-int test1()
-{
+int test1() {
 	int i = 4;
 	int j = 4;
 	// void assert(expression);
@@ -15,8 +14,7 @@ int test1()
 	return 0;
 }
 
-int test2()
-{
+int test2() {
 	int l = 12;
 
 	assert(l == 12)
@@ -24,8 +22,58 @@ int test2()
 	return 0;
 }
 
-int main()
-{
+struct PokeMon {
+	size_t size;
+	void (*create)(size_t size);
+	int (*delete)(const char *key);
+	int (*fetch)(const char *key, intptr_t *value);
+	void (*store)(const char *key, void *value);
+};
+
+/*
+void Oo_gomap(size_t size){
+	hcreate(size);
+}
+
+int Oo_delete(const char *key) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, FIND);
+	if (p) {
+		p->key="NULL"; //key不能指向空指標
+		p->data=NULL;
+		return 1;
+	} else
+		return 0;
+}
+
+int Oo_fetch(const char *key, intptr_t *value) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, FIND);
+	if (p) {
+		*value = (intptr_t)p->data;
+		return 1;
+	} else
+		return 0;
+}
+
+void Oo_store(const char *key, void *value) {
+	ENTRY e = {key: (char *)key}, *p;
+	p = hsearch(e, ENTER);
+	if (p == NULL)
+		fail("hsearch");
+	p->data = (void *)value;
+}
+*/
+
+void PokeMonNew(struct PokeMon *obj,size_t size) {
+	obj-> create = createmap;
+	obj-> delete = delete;
+	obj-> fetch = fetch;
+	obj-> store = store;
+	obj-> size = size;
+}
+
+int main() {
 
 //----mocha
 	printf("----mocha的範例----\n");
@@ -107,33 +155,77 @@ int main()
 	printf("----csplit分隔----\n");
 	int z;
 	int x;
-	char str[] = "hello****world****Nike****Kobe****Mike****LBJ****NBA****CrrryAND";
-	char str2[] = "KD****Ray****Ruby****EZ****Jack****MJ****PG****";
-	//判斷剩下的
-	char *ans[16]; //這邊未來可以動態設定,再做優化
+	char str[] = "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry AND "; //尾端剩餘
+	char str2[] = "KD\r\nRay\r\nRuby\r\nEZ\r\nJack\r\nMJ\r\nPG\r\n"; //正常
+	char str3[] = "Kobe"; //單一剩餘的情況
+	char str4[] = " Bryant\r\n";
+	char *ans[16];
 	char *ans2[16];
+	char *ans3[16];
+	char *ans4[16];
 	int i_csp = 0;
 	for (; i_csp < 16 ; i_csp++){
 		ans[i_csp] = (char *)malloc(128);
 		ans2[i_csp] = (char *)malloc(128);
+		ans3[i_csp] = (char *)malloc(128);
+		ans4[i_csp] = (char *)malloc(128);
 	}
-	size_t size = strsplit(str, ans, "****");
-	printf("原本的str===>%s\n",str);
+	size_t size = strsplit(str, ans, "\r\n");
+	printf("尾端剩餘\n");
 	for (z = 0; z < size; ++z) {
 		printf("分割後:第%d個:%s\n", z, ans[z]);
 	}
-	size_t size2 = strsplit(str2, ans2, "****");
-	printf("原本的str2===>%s\n",str2);
+	size_t size2 = strsplit(str2, ans2, "\r\n");
+	printf("尾端剩餘+正常\n");
 	for (x = 0; x < size2; ++x) {
 		printf("分割後:第%d個:%s\n", x, ans2[x]);
 	}
-	
-	// if(find_the_rest(str,"****")) {
+	size_t size3 = strsplit(str3, ans3, "\r\n");
+	printf("單一剩餘\n");
+	for (x = 0; x < size3; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans3[x]);
+	}
+	size_t size4 = strsplit(str4, ans4, "\r\n");
+	printf("單一剩餘+正常\n");
+	for (x = 0; x < size4; ++x) {
+		printf("分割後:第%d個:%s\n", x, ans4[x]);
+	}
+	// if(find_the_rest(str,"\r\n")) {
 	// 	printf("代表有剩餘\n");
 	// } else{
 	// 	printf("代表沒有剩餘\n");
 	// }
 	printf("----csplit分隔----\n");
 //----csplit
+
+//----C Object Oriented
+	intptr_t pokemon;
+	struct PokeMon Charizard;
+	PokeMonNew(&Charizard,50);
+	Charizard.create(Charizard.size);
+	printf("Charizard.size = %ld\n",Charizard.size);
+	Charizard.store("噴火龍", "名稱:噴火龍 等級:100 主人:Mike 招式:噴射火焰 超進化:可以");
+
+	struct PokeMon Cyndaquil;
+	PokeMonNew(&Cyndaquil,100);
+	Cyndaquil.create(Cyndaquil.size);
+	printf("Cyndaquil.size = %ld\n",Cyndaquil.size);
+	Cyndaquil.store("火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
+
+	if (Charizard.fetch("噴火龍", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
+	else
+		printf("找不到噴火龍\n");
+
+	if (Cyndaquil.fetch("火球鼠", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
+	else
+		printf("找不到火球鼠\n");
+
+	if (Cyndaquil.fetch("未知圖騰", &pokemon))
+		printf("資料是%s\n", (char *)pokemon);
+	else
+		printf("找不到未知圖騰\n");
+//----C Object Oriented
 	return 0;
 }
