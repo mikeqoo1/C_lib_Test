@@ -4,6 +4,7 @@
 #include "cmap.h"
 #include "csplit.h"
 
+#ifdef mocha
 int test1() {
 	int i = 4;
 	int j = 4;
@@ -21,7 +22,9 @@ int test2() {
 
 	return 0;
 }
+#endif
 
+#ifdef Coo
 struct PokeMon {
 	size_t size;
 	void (*create)(size_t size);
@@ -30,41 +33,6 @@ struct PokeMon {
 	void (*store)(const char *key, void *value);
 };
 
-/*
-void Oo_gomap(size_t size){
-	hcreate(size);
-}
-
-int Oo_delete(const char *key) {
-	ENTRY e = {key: (char *)key}, *p;
-	p = hsearch(e, FIND);
-	if (p) {
-		p->key="NULL"; //key不能指向空指標
-		p->data=NULL;
-		return 1;
-	} else
-		return 0;
-}
-
-int Oo_fetch(const char *key, intptr_t *value) {
-	ENTRY e = {key: (char *)key}, *p;
-	p = hsearch(e, FIND);
-	if (p) {
-		*value = (intptr_t)p->data;
-		return 1;
-	} else
-		return 0;
-}
-
-void Oo_store(const char *key, void *value) {
-	ENTRY e = {key: (char *)key}, *p;
-	p = hsearch(e, ENTER);
-	if (p == NULL)
-		fail("hsearch");
-	p->data = (void *)value;
-}
-*/
-
 void PokeMonNew(struct PokeMon *obj,size_t size) {
 	obj-> create = createmap;
 	obj-> delete = delete;
@@ -72,10 +40,11 @@ void PokeMonNew(struct PokeMon *obj,size_t size) {
 	obj-> store = store;
 	obj-> size = size;
 }
-
+#endif
 int main() {
 
 //----mocha
+#ifdef mocha
 	printf("----mocha的範例----\n");
 	describe(
 		"Test Example",
@@ -83,9 +52,11 @@ int main() {
 		test2
 		);
 	printf("----mocha的範例----\n");
+#endif
 //----mocha
 
 //----git map
+#ifdef gitmap
 	printf("----git上別人的map分隔----\n");
 	map_int_t m;
 	map_init(&m);
@@ -104,9 +75,11 @@ int main() {
 		printf("value not found\n");
 	}
 	printf("----git上別人的map分隔----\n");
+#endif
 //----git map
 
 //----cmap
+#ifdef cmap
 	printf("----我自己寫的map分隔----\n");
 	static const char *const keys[] =
 		{"red", "orange", "yellow", "green", "blue", "white", "black"};
@@ -149,9 +122,11 @@ int main() {
 		else
 			printf("123456 is not in table\n");
 	printf("----我自己寫的map分隔----\n");
+#endif
 //----cmap
 
 //----csplit
+#ifdef csplit
 	printf("----csplit分隔----\n");
 	int z;
 	int x;
@@ -196,9 +171,11 @@ int main() {
 	// 	printf("代表沒有剩餘\n");
 	// }
 	printf("----csplit分隔----\n");
+#endif
 //----csplit
 
 //----C Object Oriented
+#ifdef Coo
 	intptr_t pokemon;
 	struct PokeMon Charizard;
 	PokeMonNew(&Charizard,50);
@@ -226,6 +203,8 @@ int main() {
 		printf("資料是%s\n", (char *)pokemon);
 	else
 		printf("找不到未知圖騰\n");
+#endif
 //----C Object Oriented
+	printf("Hello, World!\n");
 	return 0;
 }
