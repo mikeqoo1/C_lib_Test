@@ -1,6 +1,11 @@
 # C_Lib_Test
 測試C的小功能,小東西
 
+# 說明
+
+make時,帶的參數可以決定要示範哪些例子,
+make mocha=1 gitmap=1 cmap=1 csplit=1 Coo=1
+如果要直接看全部,直接make all
 
 # Clib
 
