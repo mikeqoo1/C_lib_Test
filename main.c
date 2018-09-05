@@ -3,9 +3,11 @@
 #include "map.h"
 #include "cmap.h"
 #include "csplit.h"
+#include "switchs.h"
 
 #ifdef mocha
-int test1() {
+int test1()
+{
 	int i = 4;
 	int j = 4;
 	// void assert(expression);
@@ -15,7 +17,8 @@ int test1() {
 	return 0;
 }
 
-int test2() {
+int test2()
+{
 	int l = 12;
 
 	assert(l == 12)
@@ -25,7 +28,8 @@ int test2() {
 #endif
 
 #ifdef Coo
-struct PokeMon {
+struct PokeMon
+{
 	size_t size;
 	void (*create)(size_t size);
 	int (*delete)(const char *key);
@@ -33,7 +37,8 @@ struct PokeMon {
 	void (*store)(const char *key, void *value);
 };
 
-void PokeMonNew(struct PokeMon *obj,size_t size) {
+void PokeMonNew(struct PokeMon *obj,size_t size)
+{
 	obj-> create = createmap;
 	obj-> delete = delete;
 	obj-> fetch = fetch;
@@ -41,7 +46,8 @@ void PokeMonNew(struct PokeMon *obj,size_t size) {
 	obj-> size = size;
 }
 #endif
-int main() {
+int main(int argc, char **argv)
+{
 
 //----mocha
 #ifdef mocha
@@ -206,5 +212,27 @@ int main() {
 #endif
 //----C Object Oriented
 	printf("Hello, World!\n");
+	// switchs(argv[1]) {
+	// 	cases("bar")
+	// 		printf("foo or bar (case sensitive)\n");
+	// 		break;
+	// 	icases("pi")
+	// 		printf("pi or Pi or pI or PI (case insensitive)\n");
+	// 		break;
+	// 	cases_re("^D.*",0)
+	// 		printf("Something that start with D (case sensitive)\n");
+	// 		break;
+	// 	cases_re("^E.*",REG_ICASE)
+	// 		printf("Something that start with E (case insensitive)\n");
+	// 		break;
+	// 	cases("1")
+	// 		printf("1\n");
+	// 	cases("2")
+	// 		printf("2\n");
+	// 		break;
+	// 	defaults
+	// 		printf("No match\n");
+	// 		break;
+	// } switchs_end;
 	return 0;
 }
