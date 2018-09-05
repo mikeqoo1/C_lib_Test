@@ -212,27 +212,31 @@ int main(int argc, char **argv)
 #endif
 //----C Object Oriented
 	printf("Hello, World!\n");
-	// switchs(argv[1]) {
-	// 	cases("bar")
-	// 		printf("foo or bar (case sensitive)\n");
-	// 		break;
-	// 	icases("pi")
-	// 		printf("pi or Pi or pI or PI (case insensitive)\n");
-	// 		break;
-	// 	cases_re("^D.*",0)
-	// 		printf("Something that start with D (case sensitive)\n");
-	// 		break;
-	// 	cases_re("^E.*",REG_ICASE)
-	// 		printf("Something that start with E (case insensitive)\n");
-	// 		break;
-	// 	cases("1")
-	// 		printf("1\n");
-	// 	cases("2")
-	// 		printf("2\n");
-	// 		break;
-	// 	defaults
-	// 		printf("No match\n");
-	// 		break;
-	// } switchs_end;
+	char *argvtemp = "TEST";
+	if (argv[1] != NULL) {
+		argvtemp = argv[1];
+	}
+	switchs(argvtemp) {
+		cases("bar")
+			printf("foo or bar (區分大小寫)\n");
+			break;
+		icases("pi")
+			printf("pi or Pi or pI or PI (不分大小寫)\n");
+			break;
+		cases_re("^D.*",0)
+			printf("Something that start with D (有大寫的D開頭都算)\n");
+			break;
+		cases_re("^E.*",REG_ICASE)
+			printf("Something that start with E (大小寫的E,e開頭都算)\n");
+			break;
+		cases("1")
+			printf("1\n");
+		cases("2")
+			printf("2\n");
+			break;
+		defaults
+			printf("TEST\n");
+			break;
+	} switchs_end;
 	return 0;
 }
