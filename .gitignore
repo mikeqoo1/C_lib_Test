@@ -12,6 +12,7 @@
 *.map
 *.exp
 *test
+*google
 
 # Precompiled Headers
 *.gch
