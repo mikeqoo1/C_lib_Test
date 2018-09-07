@@ -29,11 +29,11 @@ C_FLAGS += -DCoo
 endif
 
 debug: main.c $(objects)
-	gcc -I clib $^ -o test $(C_FLAGS)
+	gcc -I clib $^ -o test.out $(C_FLAGS)
 
 all: C_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit -DCoo
 all: main.c $(objects)
-	gcc -I clib $^ -o test $(C_FLAGS)
+	gcc -I clib $^ -o test.out $(C_FLAGS)
 
 # 只make clib
 lib: $(objects)
@@ -41,8 +41,8 @@ $(objects): %.o: %.c
 	gcc -c -I clib $< -o $@ -g
 
 # google版本test
-google: google.c 
-	gcc -o google $(INC) $(LIB) -lcmockery $^ -lm
+google: Google/google.c 
+	gcc -o Google/google.out $(INC) $(LIB) -lcmockery $^ -lm
 
 
 clean:
