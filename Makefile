@@ -41,9 +41,12 @@ $(objects): %.o: %.c
 	gcc -c -I clib $< -o $@ -g
 
 # google版本test
-google: Google/google.c 
+google: Google/google.c
 	gcc -o Google/google.out $(INC) $(LIB) -lcmockery $^ -lm
 
+# check版本test
+check: Check/main.c
+	gcc -o Check/check.out Check/main.c -lcheck
 
 clean:
 	rm *.o test
