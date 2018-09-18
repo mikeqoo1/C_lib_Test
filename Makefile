@@ -2,9 +2,9 @@ vpath %.h clib  #vpath 指定搜尋路徑
 vpath %.c clib
 
 INC=-I/usr/local/include/google
-LIB=-L/usr/local/lib 
+LIB=-L/usr/local/lib -I/usr/local/include
 
-C_FLAGS = -lcheck -lm -g -Wall
+C_FLAGS = -lcheck -lm -lzlog -lpthread -g -Wall
 objects = cmap.o map.o mocha.o csplit.o
 .PHONY: clean all lib debug google
 
