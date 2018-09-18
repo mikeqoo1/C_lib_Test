@@ -14,14 +14,14 @@
  *
  * @param expression
  */
-#define assert(expression)                                          \
-    if (!(expression)) {                                            \
-        __assert_fail(#expression, __FILE__, __LINE__, __func__);   \
-        return -1;                                                  \
+#define assert(expression)                                                                                             \
+    if (!(expression)) {                                                                                               \
+        __assert_fail(#expression, __FILE__, __LINE__, __func__);                                                      \
+        return -1;                                                                                                     \
     }
 
 /* internal function */
-void __describe(const char * description, const char * testCaseNames, int (* testCaseList)(), ...);
-void __assert_fail(const char * expression, const char * file, int line, const char * func);
+void __describe(const char *description, const char *testCaseNames, int (*testCaseList)(), ...);
+void __assert_fail(const char *expression, const char *file, int line, const char *func);
 
 #endif
