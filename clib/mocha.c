@@ -28,7 +28,8 @@ static long long currentTime()
 }
 
 // __describe
-void __describe(const char *description, const char *testCaseNames, TestCase testCaseList, ...)
+void __describe(const char *description, const char *testCaseNames,
+                TestCase testCaseList, ...)
 {
     int pass = 0, fail = 0;
     long long describeStart = currentTime();
@@ -58,8 +59,9 @@ void __describe(const char *description, const char *testCaseNames, TestCase tes
         // Report
         if (result == 0) {
             // pass: ✓ xxxx (100 ms)
-            printf(COLOR_GREEN "    ✓" COLOR_DARK_GRAY " %s" COLOR_YELLOW " (%lldms)" COLOR_RESET, testName,
-                   currentTime() - testStart);
+            printf(COLOR_GREEN "    ✓" COLOR_DARK_GRAY " %s" COLOR_YELLOW
+                               " (%lldms)" COLOR_RESET,
+                   testName, currentTime() - testStart);
             pass++;
         } else {
             // fail: ✘ xxxx
@@ -73,7 +75,9 @@ void __describe(const char *description, const char *testCaseNames, TestCase tes
     free(names);
 
     // Final Report
-    printf(COLOR_GREEN "\n\n  %d passing " COLOR_DARK_GRAY "(%lldms)" COLOR_RESET, pass, currentTime() - describeStart);
+    printf(COLOR_GREEN "\n\n  %d passing " COLOR_DARK_GRAY
+                       "(%lldms)" COLOR_RESET,
+           pass, currentTime() - describeStart);
     if (fail > 0) {
         printf(COLOR_RED "  %d failing\n" COLOR_RESET, fail);
         abort();
@@ -82,7 +86,9 @@ void __describe(const char *description, const char *testCaseNames, TestCase tes
 }
 
 // __assert_fail
-void __assert_fail(const char *expression, const char *file, int line, const char *func)
+void __assert_fail(const char *expression, const char *file, int line,
+                   const char *func)
 {
-    printf(COLOR_RED "      Assertion Failed: %s, %s (%s:%d)" COLOR_RESET, expression, func, file, line);
+    printf(COLOR_RED "      Assertion Failed: %s, %s (%s:%d)" COLOR_RESET,
+           expression, func, file, line);
 }

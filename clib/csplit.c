@@ -5,27 +5,31 @@
 static char THE_REST_STR[1024] = {0}; //剩餘字串
 int strsplit(const char *str, char *ans[], const char *delimiter)
 {
-    char *All_Str = malloc(2048);                     //剩餘加上現有的str
-    char *ptr = All_Str;                              //存一個指標指到All_Str的地址,方便free掉
-    sprintf(All_Str, "%s%s", THE_REST_STR, str);      //把剩餘字串接起來,剩餘+現在
+    char *All_Str = malloc(2048); //剩餘加上現有的str
+    char *ptr = All_Str; //存一個指標指到All_Str的地址,方便free掉
+    sprintf(All_Str, "%s%s", THE_REST_STR, str); //把剩餘字串接起來,剩餘+現在
     memset(THE_REST_STR, '\0', strlen(THE_REST_STR)); //清空剩餘字串
     char *cut_str;
     int index = 0;
     cut_str = strstr(All_Str, delimiter);
-    if (cut_str == NULL) { //代表,這包第一次切就是斷包的情況
+    //代表,這包第一次切就是斷包的情況
+    if (cut_str == NULL) {
         strcpy(ans[index++], All_Str);
         strcpy(THE_REST_STR, All_Str);
     } else {
         strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
         while (cut_str != NULL) {
-            cut_str[0] = '\0';                     //讓上一個找到的符號改成結束字元
+            //讓上一個找到的符號改成結束字元
+            cut_str[0] = '\0';
             All_Str = cut_str + strlen(delimiter); //接起來,再繼續找
             cut_str = strstr(All_Str, delimiter);
-            if (cut_str == NULL) { //代表是最後一個字串,一定是剩餘字串,不然早就切了
+            //代表是最後一個字串,一定是剩餘字串,不然早就切了
+            if (cut_str == NULL) {
                 strcpy(ans[index++], All_Str);
                 strcpy(THE_REST_STR, All_Str);
             } else {
-                strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
+                strncpy(ans[index++], All_Str,
+                        strlen(All_Str) - strlen(cut_str));
             }
         }
     }

@@ -25,11 +25,11 @@ typedef struct {
     map_node_t *node;
 } map_iter_t;
 
-#define map_t(T)                                                                                                       \
-    struct {                                                                                                           \
-        map_base_t base;                                                                                               \
-        T *ref;                                                                                                        \
-        T tmp;                                                                                                         \
+#define map_t(T)                                                               \
+    struct {                                                                   \
+        map_base_t base;                                                       \
+        T *ref;                                                                \
+        T tmp;                                                                 \
     }
 
 #define map_init(m) memset(m, 0, sizeof(*(m)))
@@ -38,7 +38,8 @@ typedef struct {
 
 #define map_get(m, key) ((m)->ref = map_get_(&(m)->base, key))
 
-#define map_set(m, key, value) ((m)->tmp = (value), map_set_(&(m)->base, key, &(m)->tmp, sizeof((m)->tmp)))
+#define map_set(m, key, value)                                                 \
+    ((m)->tmp = (value), map_set_(&(m)->base, key, &(m)->tmp, sizeof((m)->tmp)))
 
 #define map_remove(m, key) map_remove_(&(m)->base, key)
 
