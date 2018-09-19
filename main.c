@@ -153,7 +153,11 @@ int main(int argc, char **argv)
         ans4[i_csp] = (char *)malloc(128);
     }
     zlog_info(logger, "切包1 開始");
-    size_t size = strsplit(str, ans, "\r\n");
+    int lck = 0;
+    size_t size;
+    for (; lck < 1000000; lck++) {
+        size = strsplit(str, ans, "\r\n");
+    }
     zlog_info(logger, "切包1 結束");
     printf("尾端剩餘\n");
     for (z = 0; z < size; ++z) {
