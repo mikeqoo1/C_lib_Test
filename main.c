@@ -3,7 +3,11 @@
 #include "map.h"
 #include "mocha.h"
 #include "switchs.h"
+#include "zlog.h"
 #include <stdio.h>
+
+int rc;
+zlog_category_t *logger;
 
 #ifdef mocha
 int test1()
@@ -47,14 +51,17 @@ void PokeMonNew(struct PokeMon *obj, size_t size)
 #endif
 int main(int argc, char **argv)
 {
+    rc = zlog_init("zlogconfig.conf");
+    logger = zlog_get_category("my_dog");
+    printf("Hello, World!\n");
+    zlog_debug(logger, "Hello, World!");
 
 //----mocha
 #ifdef mocha
-    printf("----mocha的範例----\n");
+        printf("----mocha的範例----\n");
     describe("Test Example", test1, test2);
     printf("----mocha的範例----\n");
 #endif
-//----mocha
 
 //----git map
 #ifdef gitmap
@@ -77,7 +84,6 @@ int main(int argc, char **argv)
     }
     printf("----git上別人的map分隔----\n");
 #endif
-//----git map
 
 //----cmap
 #ifdef cmap
@@ -123,17 +129,15 @@ int main(int argc, char **argv)
         printf("123456 is not in table\n");
     printf("----我自己寫的map分隔----\n");
 #endif
-//----cmap
 
 //----csplit
 #ifdef csplit
     printf("----csplit分隔----\n");
     int z;
     int x;
-    char
-        str[] =
-            "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry "
-            "AND "; //尾端剩餘
+    char str[] =
+        "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry "
+        "AND "; //尾端剩餘
     char str2[] = "KD\r\nRay\r\nRuby\r\nEZ\r\nJack\r\nMJ\r\nPG\r\n"; //正常
     char str3[] = "Kobe"; //單一剩餘的情況
     char str4[] = " Bryant\r\n";
@@ -148,7 +152,13 @@ int main(int argc, char **argv)
         ans3[i_csp] = (char *)malloc(128);
         ans4[i_csp] = (char *)malloc(128);
     }
-    size_t size = strsplit(str, ans, "\r\n");
+    zlog_info(logger, "切包1 開始");
+    int lck = 0;
+    size_t size;
+    for (; lck < 1000000; lck++) {
+        size = strsplit(str, ans, "\r\n");
+    }
+    zlog_info(logger, "切包1 結束");
     printf("尾端剩餘\n");
     for (z = 0; z < size; ++z) {
         printf("分割後:第%d個:%s\n", z, ans[z]);
@@ -175,7 +185,6 @@ int main(int argc, char **argv)
     // }
     printf("----csplit分隔----\n");
 #endif
-//----csplit
 
 //----C Object Oriented
 #ifdef Coo
@@ -209,8 +218,7 @@ int main(int argc, char **argv)
     else
         printf("找不到未知圖騰\n");
 #endif
-    //----C Object Oriented
-    printf("Hello, World!\n");
+
     char *argvtemp = "TEST";
     if (argv[1] != NULL) {
         argvtemp = argv[1];
