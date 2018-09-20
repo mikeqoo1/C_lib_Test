@@ -49,4 +49,4 @@ check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck
 
 clean:
-	rm *.o test
+	rm *.o test.out
