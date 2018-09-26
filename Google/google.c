@@ -1,7 +1,7 @@
-#include <google/cmockery.h>
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include <google/cmockery.h>
 
 #define malloc test_malloc
 #define calloc test_calloc
