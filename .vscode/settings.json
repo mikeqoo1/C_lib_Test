@@ -3,5 +3,6 @@
         "Makefile": "makefile",
         "type_traits": "c",
         "stdlib.h": "c",
+        "limits": "c"
     }
 }

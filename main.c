@@ -3,6 +3,7 @@
 #include "map.h"
 #include "mocha.h"
 #include "switchs.h"
+#include "timesub.h"
 #include "zlog.h"
 #include <stdio.h>
 
@@ -148,13 +149,13 @@ int main(int argc, char **argv)
         ans3[i_csp] = (char *)malloc(128);
         ans4[i_csp] = (char *)malloc(128);
     }
-    zlog_info(logger, "切包1 開始");
+    zlog_info(logger, "切包str 100萬次開始");
     int lck = 0;
     size_t size;
     for (; lck < 1000000; lck++) {
         size = strsplit(str, ans, "\r\n");
     }
-    zlog_info(logger, "切包1 結束");
+    zlog_info(logger, "切包str 100萬次結束");
     printf("尾端剩餘\n");
     for (z = 0; z < size; ++z) {
         printf("分割後:第%d個:%s\n", z, ans[z]);
@@ -194,7 +195,7 @@ int main(int argc, char **argv)
 
     struct PokeMon Cyndaquil;
     PokeMonNew(&Cyndaquil, 100);
-    //Cyndaquil.create(Cyndaquil.size);
+    // Cyndaquil.create(Cyndaquil.size);
     printf("Cyndaquil.size = %ld\n", Cyndaquil.size);
     Cyndaquil.store(
         "火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
@@ -214,7 +215,26 @@ int main(int argc, char **argv)
     else
         printf("找不到未知圖騰\n");
 #endif
-    SWITCH(argv);
+
+    char *now = "095604";
+    long jiui = 95550L;
+    char *mkk = "095550";
+    long AAJaJ;
+    long AAJaJ222;
+    zlog_debug(logger, "timeSubtract 100萬次 go");
+    for (int jijiji = 0; jijiji < 1000000; jijiji++) {
+        AAJaJ = timeSubtract(atol(now), jiui);
+    }
+    zlog_debug(logger, "timeSubtract 100萬次 end");
+    printf("原本版<<<%ld>>>\n", AAJaJ);
+    zlog_debug(logger, "miketime 100萬次 go");
+    for (int jijiji = 0; jijiji < 1000000; jijiji++) {
+        AAJaJ222 = miketime(now, mkk);
+    }
+    zlog_debug(logger, "miketime 100萬次 end");
+    printf("jimmy<<<%ld>>>\n", AAJaJ222);
+
+    // SWITCH(argv);
     return 0;
 }
 
