@@ -11,7 +11,6 @@
 *.ilk
 *.map
 *.exp
-*test
 
 # Precompiled Headers
 *.gch
@@ -42,6 +41,7 @@
 *.su
 *.idb
 *.pdb
+*.log
 
 # Kernel Module Compile Results
 *.mod*
