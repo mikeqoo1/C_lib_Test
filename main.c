@@ -8,6 +8,7 @@
 
 int rc;
 zlog_category_t *logger;
+void SWITCH(char **argv);
 
 #ifdef mocha
 int test1()
@@ -16,18 +17,13 @@ int test1()
     int j = 4;
     // void assert(expression);
     assert(i == j);
-
     // return 0 to tell mocha this test pass
     return 0;
 }
-
 int test2()
 {
     int l = 12;
-
-    assert(l == 12)
-
-        return 0;
+    assert(l == 12) return 0;
 }
 #endif
 
@@ -58,7 +54,7 @@ int main(int argc, char **argv)
 
 //----mocha
 #ifdef mocha
-        printf("----mocha的範例----\n");
+    printf("----mocha的範例----\n");
     describe("Test Example", test1, test2);
     printf("----mocha的範例----\n");
 #endif
@@ -198,7 +194,7 @@ int main(int argc, char **argv)
 
     struct PokeMon Cyndaquil;
     PokeMonNew(&Cyndaquil, 100);
-    Cyndaquil.create(Cyndaquil.size);
+    //Cyndaquil.create(Cyndaquil.size);
     printf("Cyndaquil.size = %ld\n", Cyndaquil.size);
     Cyndaquil.store(
         "火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
@@ -218,7 +214,12 @@ int main(int argc, char **argv)
     else
         printf("找不到未知圖騰\n");
 #endif
+    SWITCH(argv);
+    return 0;
+}
 
+void SWITCH(char **argv)
+{
     char *argvtemp = "TEST";
     if (argv[1] != NULL) {
         argvtemp = argv[1];
@@ -242,5 +243,4 @@ int main(int argc, char **argv)
         break;
     }
     switchs_end;
-    return 0;
 }

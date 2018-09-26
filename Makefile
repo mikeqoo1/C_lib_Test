@@ -31,7 +31,7 @@ endif
 debug: main.c $(objects)
 	gcc -I clib $^ -o test.out $(C_FLAGS)
 
-all: C_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit -DCoo
+all: C_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
 all: main.c $(objects)
 	gcc -I clib $^ -o test.out $(C_FLAGS)
 
