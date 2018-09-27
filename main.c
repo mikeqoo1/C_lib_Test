@@ -217,22 +217,23 @@ int main(int argc, char **argv)
 #endif
 
     char *now = "095604";
-    long jiui = 95550L;
-    char *mkk = "095550";
-    long AAJaJ;
-    long AAJaJ222;
+    long asd = 95550L;
+    char *qwe = "095550";
+    long Ans;
+    long Ans2;
+    int iii = 0;
     zlog_debug(logger, "timeSubtract 100萬次 go");
-    for (int jijiji = 0; jijiji < 1000000; jijiji++) {
-        AAJaJ = timeSubtract(atol(now), jiui);
+    for (iii = 0; iii < 1000000; iii++) {
+        Ans = timeSubtract(atol(now), asd);
     }
     zlog_debug(logger, "timeSubtract 100萬次 end");
-    printf("原本版<<<%ld>>>\n", AAJaJ);
+    printf("原本版<<<%ld>>>\n", Ans);
     zlog_debug(logger, "miketime 100萬次 go");
-    for (int jijiji = 0; jijiji < 1000000; jijiji++) {
-        AAJaJ222 = miketime(now, mkk);
+    for (iii = 0; iii < 1000000; iii++) {
+        Ans2 = miketime(now, qwe);
     }
     zlog_debug(logger, "miketime 100萬次 end");
-    printf("jimmy<<<%ld>>>\n", AAJaJ222);
+    printf("jimmy<<<%ld>>>\n", Ans2);
 
     // SWITCH(argv);
     return 0;
