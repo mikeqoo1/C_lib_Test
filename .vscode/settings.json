@@ -3,8 +3,9 @@
         "Makefile": "makefile",
         "type_traits": "c",
         "stdlib.h": "c",
-        "initializer_list": "c",
         "zlog.h": "c",
         "switchs.h": "c"
+        "limits": "c",
+        "initializer_list": "c"
     }
 }

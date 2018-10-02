@@ -4,9 +4,9 @@ vpath %.c clib
 INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
 
-C_FLAGS = -lm -lzlog -lpthread -g -Wall
-objects = cmap.o map.o mocha.o csplit.o
-.PHONY: clean all lib debug google check utest
+C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -g -Wall
+objects = cmap.o map.o mocha.o csplit.o timesub.o
+.PHONY: clean all lib debug google
 
 ifeq ($(mocha),1)
 C_FLAGS += -Dmocha

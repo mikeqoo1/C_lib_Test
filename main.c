@@ -3,9 +3,15 @@
 #include "map.h"
 #include "mocha.h"
 #include "switchs.h"
+#include "timesub.h"
 #include "zlog.h"
 #include <stdio.h>
+#include <uv.h>
 
+#ifndef RUN_CNT
+#define RUN_CNT (uint64_t)1000000
+#endif
+uint64_t start, end, diff, per;
 int rc;
 zlog_category_t *logger;
 void SWITCH(char **argv);
@@ -50,7 +56,6 @@ int main(int argc, char **argv)
     rc = zlog_init("zlogconfig.conf");
     logger = zlog_get_category("my_dog");
     printf("Hello, World!\n");
-    zlog_debug(logger, "Hello, World!");
 
 //----mocha
 #ifdef mocha
@@ -148,13 +153,8 @@ int main(int argc, char **argv)
         ans3[i_csp] = (char *)malloc(128);
         ans4[i_csp] = (char *)malloc(128);
     }
-    zlog_info(logger, "切包1 開始");
-    int lck = 0;
     size_t size;
-    for (; lck < 1000000; lck++) {
-        size = strsplit(str, ans, "\r\n");
-    }
-    zlog_info(logger, "切包1 結束");
+    size = strsplit(str, ans, "\r\n");
     printf("尾端剩餘\n");
     for (z = 0; z < size; ++z) {
         printf("分割後:第%d個:%s\n", z, ans[z]);
@@ -194,7 +194,7 @@ int main(int argc, char **argv)
 
     struct PokeMon Cyndaquil;
     PokeMonNew(&Cyndaquil, 100);
-    //Cyndaquil.create(Cyndaquil.size);
+    // Cyndaquil.create(Cyndaquil.size);
     printf("Cyndaquil.size = %ld\n", Cyndaquil.size);
     Cyndaquil.store(
         "火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
@@ -214,7 +214,44 @@ int main(int argc, char **argv)
     else
         printf("找不到未知圖騰\n");
 #endif
-    SWITCH(argv);
+    char testdata[] = "恭喜\r\n發財！！";
+    char *now = "095604";
+    long asd = 95550L;
+    char *qwe = "095550";
+
+    int iii = 0;
+    char *anstesttt[16];
+    for (iii = 0; iii < 16; iii++) {
+        anstesttt[iii] = (char *)malloc(128);
+    }
+
+    start = uv_hrtime();
+    for (iii = 0; iii < 1000000; iii++)
+        strsplit(testdata, anstesttt, "\r\n");
+    end = uv_hrtime();
+    diff = end - start;
+    per = diff / RUN_CNT;
+    zlog_debug(logger, "strsplit => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT,
+               diff, per);
+
+    start = uv_hrtime();
+    for (iii = 0; iii < 1000000; iii++)
+        timeSubtract(atol(now), asd);
+    end = uv_hrtime();
+    diff = end - start;
+    per = diff / RUN_CNT;
+    zlog_debug(logger, "timeSubtract => %llu run: %llu[ns] (%llu ns/op)",
+               RUN_CNT, diff, per);
+
+    start = uv_hrtime();
+    for (iii = 0; iii < 1000000; iii++)
+        miketime(now, qwe);
+    end = uv_hrtime();
+    diff = end - start;
+    per = diff / RUN_CNT;
+    zlog_debug(logger, "miketime => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT,
+               diff, per);
+    // SWITCH(argv);
     return 0;
 }
 
