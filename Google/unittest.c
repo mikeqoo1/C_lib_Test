@@ -1,6 +1,7 @@
 #include "cmap.h"
 #include "csplit.h"
 #include "zlog.h"
+#include "timesub.h"
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -53,6 +54,18 @@ void test_csplit(void **state)
     zlog_debug(logger, "結束測試csplit");
 }
 
+void test_time(void **state)
+{
+    logger = zlog_get_category("my_test");
+    zlog_debug(logger, "開始測試time");
+    char *now = "095604";
+    char *qwe = "095550";
+    long A = 0L;
+    A = miketime(now, qwe);
+    assert_int_equal(A, 14);
+    zlog_debug(logger, "結束測試time");
+}
+
 int main(int argc, char *argv[])
 {
     rc = zlog_init("zlogconfig.conf");
@@ -60,6 +73,7 @@ int main(int argc, char *argv[])
     const UnitTest tests[] = {
         unit_test(test_cmap),
         unit_test(test_csplit),
+        unit_test(test_time),
     };
     return run_tests(tests);
 }
