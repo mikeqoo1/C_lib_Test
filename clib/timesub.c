@@ -27,23 +27,17 @@ long miketime(char *now, char *beforetime)
     long hour;
     long min;
     long sec;
-    for (i = 0; i < 6; i += 2) {
-        // printf("now 小時= %c%c i=%d\n", *(now + i), *(now + i + 1), i);
-        // printf("beforetime 小時= %c%c i=%d\n", *(beforetime + i),
-        //       *(beforetime + i + 1), i);
-        if (i == 0) {
-            hour = (*(now + i) - *(beforetime + i)) * 10 + *(now + i + 1) -
-                   *(beforetime + i + 1);
-            // printf("%ld\n", hour);
-        } else if (i == 2) {
-            min = (*(now + i) - *(beforetime + i)) * 10 + *(now + i + 1) -
-                  *(beforetime + i + 1);
-            // printf("%ld\n", min*60);
-        } else {
-            sec = (*(now + i) - *(beforetime + i)) * 10 + *(now + i + 1) -
-                  *(beforetime + i + 1);
-            // printf("%ld\n", sec);
-        }
-    }
+    // printf("now 小時= %c%c i=%d\n", *(now + i), *(now + i + 1), i);
+    // printf("beforetime 小時= %c%c i=%d\n", *(beforetime + i),
+    //       *(beforetime + i + 1), i);
+    hour =
+        (*(now + 0) - *(beforetime + 0)) * 10 + *(now + 1) - *(beforetime + 1);
+    // printf("%ld\n", hour);
+    min =
+        (*(now + 2) - *(beforetime + 2)) * 10 + *(now + 3) - *(beforetime + 3);
+    // printf("%ld\n", min*60);
+    sec =
+        (*(now + 4) - *(beforetime + 4)) * 10 + *(now + 5) - *(beforetime + 5);
+    // printf("%ld\n", sec);
     return (hour * 3600 + min * 60 + sec);
 }
