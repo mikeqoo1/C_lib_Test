@@ -57,13 +57,18 @@ void test_csplit(void **state)
 void test_time(void **state)
 {
     logger = zlog_get_category("my_test");
-    zlog_debug(logger, "開始測試time");
+    zlog_debug(logger, "開始測試miketime");
     char *now = "095604";
     char *qwe = "095550";
     long A = 0L;
     A = miketime(now, qwe);
     assert_int_equal(A, 14);
-    zlog_debug(logger, "結束測試time");
+    zlog_debug(logger, "結束測試miketime");
+
+    zlog_debug(logger, "開始測試timeSubtract");
+    A = timeSubtract(atol(now), qwe);
+    assert_int_equal(A, 14);
+    zlog_debug(logger, "結束測試timeSubtract");
 }
 
 int main(int argc, char *argv[])
