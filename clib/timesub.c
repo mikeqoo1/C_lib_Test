@@ -44,8 +44,8 @@ long miketime(char *now, char *beforetime)
 
 long miketime2(char *now, char *beforetime)
 {
-    int_fast64_t hh = (now[0] - njsqtime[0]) * 10 + (now[1] - njsqtime[1]);
-    int_fast64_t mm = (now[2] - njsqtime[2]) * 10 + (now[3] - njsqtime[3]);
-    int_fast64_t ss = (now[4] - njsqtime[4]) * 10 + (now[5] - njsqtime[5]);
+    long hh = (now[0] - beforetime[0]) * 10 + (now[1] - beforetime[1]);
+    long mm = (now[2] - beforetime[2]) * 10 + (now[3] - beforetime[3]);
+    long ss = (now[4] - beforetime[4]) * 10 + (now[5] - beforetime[5]);
     return hh * 3600L + mm * 60L + ss;
 }
