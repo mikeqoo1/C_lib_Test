@@ -66,9 +66,14 @@ void test_time(void **state)
     zlog_debug(logger, "結束測試miketime");
 
     zlog_debug(logger, "開始測試timeSubtract");
-    A = timeSubtract(atol(now), qwe);
+    A = timeSubtract(atol(now), atol(qwe));
     assert_int_equal(A, 14);
     zlog_debug(logger, "結束測試timeSubtract");
+
+    zlog_debug(logger, "開始測試miketime2");
+    A = miketime2(now, qwe);
+    assert_int_equal(A, 14);
+    zlog_debug(logger, "結束測試miketime2");
 }
 
 int main(int argc, char *argv[])

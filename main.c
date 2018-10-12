@@ -136,11 +136,10 @@ int main(int argc, char **argv)
     printf("----csplit分隔----\n");
     int z;
     int x;
-    char str[] =
-        "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry "
-        "AND "; //尾端剩餘
+    char str[] = "hello world\r\nNike\r\nPokeMon!\r\nMike\r\nLBJ\r\nNBA\r\nCrrry "
+                 "AND ";                                             //尾端剩餘
     char str2[] = "KD\r\nRay\r\nRuby\r\nEZ\r\nJack\r\nMJ\r\nPG\r\n"; //正常
-    char str3[] = "Kobe"; //單一剩餘的情況
+    char str3[] = "Kobe";                                            //單一剩餘的情況
     char str4[] = " Bryant\r\n";
     char *ans[16];
     char *ans2[16];
@@ -189,15 +188,13 @@ int main(int argc, char **argv)
     PokeMonNew(&Charizard, 50);
     Charizard.create(Charizard.size);
     printf("Charizard.size = %ld\n", Charizard.size);
-    Charizard.store("噴火龍",
-                    "名稱:噴火龍 等級:100 主人:Mike 招式:噴射火焰 超進化:可以");
+    Charizard.store("噴火龍", "名稱:噴火龍 等級:100 主人:Mike 招式:噴射火焰 超進化:可以");
 
     struct PokeMon Cyndaquil;
     PokeMonNew(&Cyndaquil, 100);
     // Cyndaquil.create(Cyndaquil.size);
     printf("Cyndaquil.size = %ld\n", Cyndaquil.size);
-    Cyndaquil.store(
-        "火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
+    Cyndaquil.store("火球鼠", "名稱:火球鼠 等級:100 主人:Ann 招式:火焰漩渦 超進化:不可以");
 
     if (Charizard.fetch("噴火龍", &pokemon))
         printf("資料是%s\n", (char *)pokemon);
@@ -231,8 +228,7 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "strsplit => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT,
-               diff, per);
+    zlog_debug(logger, "strsplit => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
 
     start = uv_hrtime();
     for (iii = 0; iii < 1000000; iii++)
@@ -240,8 +236,7 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "timeSubtract => %llu run: %llu[ns] (%llu ns/op)",
-               RUN_CNT, diff, per);
+    zlog_debug(logger, "timeSubtract => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
 
     start = uv_hrtime();
     for (iii = 0; iii < 1000000; iii++)
@@ -249,8 +244,15 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "miketime => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT,
-               diff, per);
+    zlog_debug(logger, "miketime => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
+
+    start = uv_hrtime();
+    for (iii = 0; iii < 1000000; iii++)
+        miketime2(now, qwe);
+    end = uv_hrtime();
+    diff = end - start;
+    per = diff / RUN_CNT;
+    zlog_debug(logger, "miketime2 => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
     // SWITCH(argv);
     return 0;
 }
@@ -267,11 +269,9 @@ void SWITCH(char **argv)
         break;
         icases("pi") printf("pi or Pi or pI or PI (不分大小寫)\n");
         break;
-        cases_re("^D.*", 0)
-            printf("Something that start with D (有大寫的D開頭都算)\n");
+        cases_re("^D.*", 0) printf("Something that start with D (有大寫的D開頭都算)\n");
         break;
-        cases_re("^E.*", REG_ICASE)
-            printf("Something that start with E (大小寫的E,e開頭都算)\n");
+        cases_re("^E.*", REG_ICASE) printf("Something that start with E (大小寫的E,e開頭都算)\n");
         break;
         cases("1") printf("1\n");
         cases("2") printf("2\n");

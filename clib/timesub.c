@@ -41,3 +41,11 @@ long miketime(char *now, char *beforetime)
     // printf("%ld\n", sec);
     return (hour * 3600 + min * 60 + sec);
 }
+
+long miketime2(char *now, char *beforetime)
+{
+    long hh = (now[0] - beforetime[0]) * 10 + (now[1] - beforetime[1]);
+    long mm = (now[2] - beforetime[2]) * 10 + (now[3] - beforetime[3]);
+    long ss = (now[4] - beforetime[4]) * 10 + (now[5] - beforetime[5]);
+    return hh * 3600L + mm * 60L + ss;
+}
