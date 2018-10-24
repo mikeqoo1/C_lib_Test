@@ -30,14 +30,11 @@ long miketime(char *now, char *beforetime)
     // printf("now 小時= %c%c i=%d\n", *(now + i), *(now + i + 1), i);
     // printf("beforetime 小時= %c%c i=%d\n", *(beforetime + i),
     //       *(beforetime + i + 1), i);
-    hour =
-        (*(now + 0) - *(beforetime + 0)) * 10 + *(now + 1) - *(beforetime + 1);
+    hour = (*(now + 0) - *(beforetime + 0)) * 10 + *(now + 1) - *(beforetime + 1);
     // printf("%ld\n", hour);
-    min =
-        (*(now + 2) - *(beforetime + 2)) * 10 + *(now + 3) - *(beforetime + 3);
+    min = (*(now + 2) - *(beforetime + 2)) * 10 + *(now + 3) - *(beforetime + 3);
     // printf("%ld\n", min*60);
-    sec =
-        (*(now + 4) - *(beforetime + 4)) * 10 + *(now + 5) - *(beforetime + 5);
+    sec = (*(now + 4) - *(beforetime + 4)) * 10 + *(now + 5) - *(beforetime + 5);
     // printf("%ld\n", sec);
     return (hour * 3600 + min * 60 + sec);
 }

@@ -6,8 +6,8 @@ static char THE_REST_STR[1024] = {0}; //剩餘字串
 int strsplit(const char *str, char *ans[], const char *delimiter)
 {
     char *All_Str = malloc(2048); //剩餘加上現有的str
-    char *ptr = All_Str; //存一個指標指到All_Str的地址,方便free掉
-    sprintf(All_Str, "%s%s", THE_REST_STR, str); //把剩餘字串接起來,剩餘+現在
+    char *ptr = All_Str;          //存一個指標指到All_Str的地址,方便free掉
+    sprintf(All_Str, "%s%s", THE_REST_STR, str);      //把剩餘字串接起來,剩餘+現在
     memset(THE_REST_STR, '\0', strlen(THE_REST_STR)); //清空剩餘字串
     char *cut_str;
     int index = 0;
@@ -28,8 +28,7 @@ int strsplit(const char *str, char *ans[], const char *delimiter)
                 strcpy(ans[index++], All_Str);
                 strcpy(THE_REST_STR, All_Str);
             } else {
-                strncpy(ans[index++], All_Str,
-                        strlen(All_Str) - strlen(cut_str));
+                strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
             }
         }
     }
