@@ -63,11 +63,15 @@ void test_csplit(void **state)
     int q = 0;
     int sss = 0;
     sss = strsplit(str5, ans5, "\r\n");
+    assert_string_equal(ans5[1], "突如其來的美夢");
     for (q = 0; q < sss; q++) {
-        printf("1.<%s>>\n", ans5[q]);
+        assert_string_equal(ans5[0], "告五人 Accusefive.《 披星戴月的想你 》");
+        assert_string_equal(ans5[1], "突如其來的美夢");
     }
     sss = strsplit(str6, ans5, "\r\n");
     for (q = 0; q < sss; q++) {
+        assert_string_equal(ans5[0], "是你離去時卷起的泡沫A");
+        assert_string_equal(ans5[1], "踢著石頭 默默的走");
         printf("2.<%s>>\n", ans5[q]);
     }
     sss = strsplit(str7, ans5, "\r\n");
