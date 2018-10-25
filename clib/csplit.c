@@ -14,10 +14,10 @@ int strsplit(const char *str, char *ans[], const char *delimiter)
     cut_str = strstr(All_Str, delimiter);
     //代表,這包第一次切就是斷包的情況
     if (cut_str == NULL) {
-        strcpy(ans[index++], All_Str);
         strcpy(THE_REST_STR, All_Str);
     } else {
-        strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
+        strncpy(ans[index], All_Str, strlen(All_Str) - strlen(cut_str));
+        index++;
         while (cut_str != NULL) {
             //讓上一個找到的符號改成結束字元
             cut_str[0] = '\0';
@@ -27,7 +27,8 @@ int strsplit(const char *str, char *ans[], const char *delimiter)
             if (cut_str == NULL) {
                 strcpy(THE_REST_STR, All_Str);
             } else {
-                strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
+                strncpy(ans[index], All_Str, strlen(All_Str) - strlen(cut_str));
+                index++;
             }
         }
     }
