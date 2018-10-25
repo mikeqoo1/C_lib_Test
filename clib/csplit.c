@@ -25,7 +25,6 @@ int strsplit(const char *str, char *ans[], const char *delimiter)
             cut_str = strstr(All_Str, delimiter);
             //代表是最後一個字串,一定是剩餘字串,不然早就切了
             if (cut_str == NULL) {
-                strcpy(ans[index++], All_Str);
                 strcpy(THE_REST_STR, All_Str);
             } else {
                 strncpy(ans[index++], All_Str, strlen(All_Str) - strlen(cut_str));
