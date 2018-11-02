@@ -1,0 +1,6 @@
+{
+    "name": "C_lib_Test",
+    "scripts": {
+        "test": "make utest && ./Google/unittest.out"
+    }
+}
