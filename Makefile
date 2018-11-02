@@ -4,7 +4,7 @@ vpath %.c clib
 INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
 
-C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -g -Wall
+C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
 objects = cmap.o map.o mocha.o csplit.o timesub.o
 .PHONY: clean all lib debug google
 
@@ -29,11 +29,11 @@ C_FLAGS += -DCoo
 endif
 
 debug: main.c $(objects)
-	gcc -I clib -o test.out $(C_FLAGS) $^
+	gcc -I clib -o main.out $(C_FLAGS) -g $^
 
 all: C_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
 all: main.c $(objects)
-	gcc -I clib -o test.out $(C_FLAGS) $^
+	gcc -I clib -o main.out $(C_FLAGS) -O3 $^
 
 # 只make clib
 lib: $(objects)

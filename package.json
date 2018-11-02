@@ -1,6 +1,9 @@
 {
     "name": "C_lib_Test",
     "scripts": {
-        "test": "make utest && ./Google/unittest.out"
+        "build-test": "make utest",
+        "test": "./Google/unittest.out",
+        "build-all-func": "make all",
+        "run-all": "./main.out"
     }
 }
