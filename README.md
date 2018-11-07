@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mikeqoo1/C_lib_Test.svg?branch=master)](https://travis-ci.org/mikeqoo1/C_lib_Test)
+
 # C_Lib_Test
 測試C的小功能,小東西
 
