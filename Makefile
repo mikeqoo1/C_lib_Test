@@ -5,7 +5,7 @@ INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
 
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
-objects = cmap.o map.o mocha.o csplit.o timesub.o
+objects = cmap.o map.o mocha.o csplit.o timesub.o dictionary.o iniparser.o iniconfig.o
 .PHONY: clean all lib debug google
 
 ifeq ($(mocha),1)
@@ -52,8 +52,11 @@ google: Google/google.c
 check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
+ini: test.c
+	gcc -I clib -o a.out test.c iniconfig.o dictionary.o iniparser.o
+
 clean:
-	rm *.o test.out
+	rm *.o main.out
 
 
 # 特殊符號說明
