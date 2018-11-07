@@ -1,3 +1,8 @@
-language: node_js
-commands:
-      - npm run test
+# language: node_js
+# commands:
+#       - npm run test
+language: c
+env:
+ - ENV_CC=gcc
+
+script: CC=$ENV_CC make lib && CC=$ENV_CC make all
