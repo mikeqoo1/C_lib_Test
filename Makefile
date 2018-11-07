@@ -5,7 +5,7 @@ INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
 
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
-CI_FLAGS = -lcheck -lm -lpthread -Wall
+CI_FLAGS = -lm -lpthread -Wall
 objects = cmap.o map.o mocha.o csplit.o timesub.o
 .PHONY: clean all lib debug google
 
