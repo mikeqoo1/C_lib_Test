@@ -5,6 +5,7 @@ INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
 
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
+CI_FLAGS = -lm -lpthread -Wall
 objects = cmap.o map.o mocha.o csplit.o timesub.o
 .PHONY: clean all lib debug google
 
@@ -29,11 +30,14 @@ C_FLAGS += -DCoo
 endif
 
 debug: main.c $(objects)
-	gcc -I clib -o main.out $(C_FLAGS) -g $^
+	gcc -I clib -o main.out $(CI_FLAGS) -g $^
 
-all: C_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
+all: CI_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
 all: main.c $(objects)
-	gcc -I clib -o main.out $(C_FLAGS) -O3 $^
+	gcc -I clib -o main.out $(CI_FLAGS) -O3 $^
+
+bench: benchmark.c csplit.o timesub.o
+	gcc -I clib -o bench.out $(C_FLAGS) -O3 $^
 
 # 只make clib
 lib: $(objects)
@@ -53,7 +57,7 @@ check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
 clean:
-	rm *.o test.out
+	rm *.o main.out bench.out
 
 
 # 特殊符號說明
