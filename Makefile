@@ -56,9 +56,8 @@ google: Google/google.c
 check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
-ini: test.c
-	gcc -I clib -o a.out test.c iniconfig.o dictionary.o iniparser.o
-
+ini: test.c iniconfig.o dictionary.o iniparser.o
+	gcc -I clib -o a.out $^
 clean:
 	rm *.o main.out bench.out
 
