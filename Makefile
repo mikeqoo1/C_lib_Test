@@ -3,6 +3,7 @@ vpath %.c clib
 
 INC=-I/usr/local/include/google
 LIB=-L/usr/local/lib -I/usr/local/include
+MYSQL = `mysql_config --include --libs`
 
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
 CI_FLAGS = -lm -lpthread -Wall
@@ -56,10 +57,13 @@ google: Google/google.c
 check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
-ini: test.c iniconfig.o dictionary.o iniparser.o
-	gcc -I clib -o a.out $^
+ini: 
+	gcc -c clib/dictionary.c -I clib
+	gcc -c clib/iniparser.c -I clib
+	gcc -c clib/iniconfig.c -I clib $(MYSQL)
+	gcc testdb.c -I clib -o db.out dictionary.o iniparser.o iniconfig.o $(MYSQL)
 clean:
-	rm *.o main.out bench.out
+	rm *.o main.out bench.out db.out
 
 
 # 特殊符號說明
