@@ -10,5 +10,7 @@ int main(int argc, char *argv[])
     }
     const char *file = argv[1];
     parse_ini_file(file);
+    init_DB_connection();
+    getConnection();
     return 0;
 }
