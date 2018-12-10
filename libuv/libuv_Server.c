@@ -9,6 +9,7 @@
 uv_loop_t *loop;
 struct sockaddr_in addr;
 
+void on_close(uv_handle_t *handle);
 void alloc_buffer(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
 void echo_write(uv_write_t *req, int status);
 void echo_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf);
@@ -40,6 +41,8 @@ void alloc_buffer(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf)
     buf->len = suggested_size;
 }
 
+void on_close(uv_handle_t *handle) { printf("%p closed.\n", handle); }
+
 void echo_write(uv_write_t *req, int status)
 {
     if (status) {
@@ -51,12 +54,18 @@ void echo_write(uv_write_t *req, int status)
 void echo_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf)
 {
     if (nread < 0) {
-        if (nread != UV_EOF) fprintf(stderr, "Read error %s\n", uv_err_name(nread));
-        uv_close((uv_handle_t *)client, NULL);
+        if (nread != UV_EOF) {
+            fprintf(stderr, "Read error %s\n", uv_err_name(nread));
+        }
+        uv_close((uv_handle_t *)client, on_close);
     } else if (nread > 0) {
-        /*uv_write_t *req = (uv_write_t *) malloc(sizeof(uv_write_t));
-        uv_buf_t wrbuf = uv_buf_init(buf->base, nread);
-        uv_write(req, client, &wrbuf, 1, echo_write);*/
+        uv_write_t *req = (uv_write_t *)malloc(sizeof(uv_write_t));
+        // uv_buf_t wrbuf = uv_buf_init(buf->base, nread);
+        printf("on read(收到訊息): %s\n", buf->base);
+        char TempStr[128] = "I am Server, 你的訊息是 = ";
+        strcat(TempStr, buf->base);
+        uv_buf_t wrbuf = uv_buf_init(TempStr, 128);
+        uv_write(req, client, &wrbuf, 1, echo_write);
     }
 }
 
@@ -73,7 +82,7 @@ void on_new_connection(uv_stream_t *server, int status)
     if (uv_accept(server, (uv_stream_t *)client) == 0) {
         uv_read_start((uv_stream_t *)client, alloc_buffer, echo_read);
     } else {
-        uv_close((uv_handle_t *)client, NULL);
+        uv_close((uv_handle_t *)client, on_close);
     }
-    printf("on new connection, status:%d\r\n", status);
+    printf("on new connection, client:%p, status:%d\n", client, status);
 }
