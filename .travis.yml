@@ -2,10 +2,10 @@ language: c
 
 env:
   global:
-    - LIBUV_PREFIX=$HOME/prebuilt/libuv-1.11.0 ;
-    - LIBUV_VERSION=1.11.0
-    - CMAKE_PREFIX=$HOME/prebuilt/cmake ;
-    - CMAKE_LINUX_URL=https://cmake.org/files/v3.8/cmake-3.8.1-Linux-x86_64.sh ;
+   # - LIBUV_PREFIX=$HOME/prebuilt/libuv-1.11.0 ;
+   # - LIBUV_VERSION=1.11.0
+   # - CMAKE_PREFIX=$HOME/prebuilt/cmake ;
+   # - CMAKE_LINUX_URL=https://cmake.org/files/v3.8/cmake-3.8.1-Linux-x86_64.sh ;
 matrix:
   include:
     - os: linux
@@ -38,30 +38,38 @@ addons:
 before_install:
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; fi
 install:
-    - if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
-          if [ ! -e "$CMAKE_BIN" ]; then
-            mkdir -p "$CMAKE_PREFIX";
-            curl --insecure -L "$CMAKE_LINUX_URL" -o cmake-linux.sh ;
-            bash cmake-linux.sh --skip-license --prefix=$CMAKE_PREFIX ;
-          fi
-      fi
+    #- if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
+    #      if [ ! -e "$CMAKE_BIN" ]; then
+    #        mkdir -p "$CMAKE_PREFIX";
+    #        curl --insecure -L "$CMAKE_LINUX_URL" -o cmake-linux.sh ;
+    #        bash cmake-linux.sh --skip-license --prefix=$CMAKE_PREFIX ;
+    #      fi
+    #  fi
+    wget "https://github.com/libuv/libuv/archive/v1.18.0.tar.gz"
+    tar -zxvf v1.18.0.tar.gz
+    cd libuv-1.18.0
+    sh autogen.sh
+    ./configure
+    make -j4
+    sudo make install
+    sudo ldconfig
 
-before_script:
-  - REPO_DIR=$PWD;
-  - cd /tmp
-  - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
-        if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
-          mkdir -p "$LIBUV_PREFIX";
-          wget -c "http://dist.libuv.org/dist/v$LIBUV_VERSION/libuv-v$LIBUV_VERSION.tar.gz" -O libuv-v$LIBUV_VERSION.tar.gz;
-          tar -xvf libuv-v$LIBUV_VERSION.tar.gz;
-          cd libuv-v$LIBUV_VERSION ;
-          ./autogen.sh;
-          ./configure --prefix=$LIBUV_PREFIX --with-pic=yes --enable-shared=yes --enable-static=no;
-          make -j4 install -Wl ;
-          cd -;
-          rm -rf libuv-v$LIBUV_VERSION libuv-v$LIBUV_VERSION ;
-        fi
-    fi
-  - cd "$REPO_DIR";
+# before_script:
+#   - REPO_DIR=$PWD;
+#   - cd /tmp
+#   - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
+#         if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
+#           mkdir -p "$LIBUV_PREFIX";
+#           wget -c "http://dist.libuv.org/dist/v$LIBUV_VERSION/libuv-v$LIBUV_VERSION.tar.gz" -O libuv-v$LIBUV_VERSION.tar.gz;
+#           tar -xvf libuv-v$LIBUV_VERSION.tar.gz;
+#           cd libuv-v$LIBUV_VERSION ;
+#           ./autogen.sh;
+#           ./configure --prefix=$LIBUV_PREFIX --with-pic=yes --enable-shared=yes --enable-static=no;
+#           make -j4 install -Wl ;
+#           cd -;
+#           rm -rf libuv-v$LIBUV_VERSION libuv-v$LIBUV_VERSION ;
+#         fi
+#     fi
+#   - cd "$REPO_DIR";
 
 script: CC=$ENV_CC make all && CC=$ENV_CC make libuv && CC=$ENV_CC make libuv2
