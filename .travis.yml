@@ -45,14 +45,14 @@ install:
     #        bash cmake-linux.sh --skip-license --prefix=$CMAKE_PREFIX ;
     #      fi
     #  fi
-    wget "https://github.com/libuv/libuv/archive/v1.18.0.tar.gz"
-    tar -xvf v1.18.0.tar.gz
-    cd libuv-1.18.0
-    sh autogen.sh
-    ./configure
-    make -j4
-    sudo make install
-    sudo ldconfig
+    wget "https://github.com/libuv/libuv/archive/v1.18.0.tar.gz";
+    tar -zxvf v1.18.0.tar.gz;
+    cd libuv-1.18.0;
+    sh autogen.sh;
+    ./configure;
+    make -j4;
+    make install;
+    ldconfig;
 
 # before_script:
 #   - REPO_DIR=$PWD;
