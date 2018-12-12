@@ -57,11 +57,20 @@ google: Google/google.c
 check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
-ini: 
+# ini test...
+ini:
 	gcc -c clib/dictionary.c -I clib
 	gcc -c clib/iniparser.c -I clib
 	gcc -c clib/iniconfig.c -I clib $(MYSQL)
 	gcc testdb.c -I clib -o db.out dictionary.o iniparser.o iniconfig.o $(MYSQL)
+
+# libuv的範例
+libuv: libuv/libuv_Server.c
+	gcc -o libuv.out $(C_FLAGS) $^
+
+libuv2: libuv/libuv_Client.c
+	gcc -o client.out $(C_FLAGS) $^
+
 clean:
 	rm *.o main.out bench.out db.out
 
