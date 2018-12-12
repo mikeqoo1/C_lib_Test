@@ -8,10 +8,7 @@ MYSQL = `mysql_config --include --libs`
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
 CI_FLAGS = -lm -lpthread -Wall
 objects = cmap.o map.o mocha.o csplit.o timesub.o
-.PHONY: clean all debug
-	buildall builddebug
-	google bench utest check 
-	libuvS libuvC
+.PHONY: clean all lib debug google
 
 ifeq ($(mocha),1)
 C_FLAGS += -Dmocha
@@ -33,56 +30,50 @@ ifeq ($(Coo),1)
 C_FLAGS += -DCoo
 endif
 
-# 編譯執行檔出來
-all: buildall clean
-debug: builddebug clean
-
-# 編譯指令
-builddebug: main.c $(objects)
+debug: main.c $(objects)
 	gcc -I clib -o main.out $(CI_FLAGS) -g $^
 
-buildall: CI_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
-buildall: main.c $(objects)
+all: CI_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
+all: main.c $(objects)
 	gcc -I clib -o main.out $(CI_FLAGS) -O3 $^
+
+bench: benchmark.c csplit.o timesub.o
+	gcc -I clib -o bench.out $(C_FLAGS) -O3 $^
 
 # 只make clib
 lib: $(objects)
 $(objects): %.o: %.c
 	gcc -c -I clib $< -o $@ -g
 
-# clib的BenchMark
-bench: benchmark.c csplit.o timesub.o
-	gcc -I clib -o bench.out $(C_FLAGS) -O3 $^
-
 # clib的單元測試
 utest: Google/unittest.c $(objects)
 	gcc -o Google/unittest.out -I clib $(INC) $(LIB) $(C_FLAGS) -lcmockery $^
 
-# google版本test的範例
+# google版本test
 google: Google/google.c
 	gcc -o Google/google.out $(INC) $(LIB) -lcmockery $^
 
-# check版本test的範例
+# check版本test
 check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
-# libuv的範例
-libuvS: libuv/libuv_Server.c
-	gcc -o libuvS.out -luv $^
-
-libuvC: libuv/libuv_Client.c
-	gcc -o libuvC.out -luv $^
-
 # ini test...
-#ini:
-#	gcc -c clib/dictionary.c -I clib
-#	gcc -c clib/iniparser.c -I clib
-#	gcc -c clib/iniconfig.c -I clib $(MYSQL)
-#	gcc testdb.c -I clib -o db.out dictionary.o iniparser.o iniconfig.o $(MYSQL)
+ini:
+	gcc -c clib/dictionary.c -I clib
+	gcc -c clib/iniparser.c -I clib
+	gcc -c clib/iniconfig.c -I clib $(MYSQL)
+	gcc testdb.c -I clib -o db.out dictionary.o iniparser.o iniconfig.o $(MYSQL)
 
-# 清理.o檔案
+# libuv的範例
+libuv: libuv/libuv_Server.c
+	gcc -o libuv.out $(C_FLAGS) $^
+
+libuv2: libuv/libuv_Client.c
+	gcc -o client.out $(C_FLAGS) $^
+
 clean:
-	rm *.o
+	rm *.o main.out bench.out db.out
+
 
 # 特殊符號說明
 #  – $@ 代表工作目標 (上例中的 %.o)
