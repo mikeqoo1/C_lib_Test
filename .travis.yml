@@ -3,4 +3,4 @@ language: c
 env:
  - ENV_CC=gcc
 
-script: CC=$ENV_CC make all
+script: CC=$ENV_CC make all && CC=$ENV_CC make libuv && CC=$ENV_CC make libuv2
