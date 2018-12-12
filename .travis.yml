@@ -57,7 +57,7 @@ before_script:
           cd libuv-v$LIBUV_VERSION ;
           ./autogen.sh;
           ./configure --prefix=$LIBUV_PREFIX --with-pic=yes --enable-shared=yes --enable-static=no;
-          make -j4 install;
+          make -j4 install -Wl ;
           cd -;
           rm -rf libuv-v$LIBUV_VERSION libuv-v$LIBUV_VERSION ;
         fi
