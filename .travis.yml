@@ -60,13 +60,6 @@ install:
 before_script:
   - REPO_DIR=$PWD;
   - cd /tmp
-  - if [ ! -e "$MSGPACK_PREFIX/include/msgpack.hpp" ]; then
-        mkdir -p "$MSGPACK_PREFIX" ;
-        wget -c "https://github.com/msgpack/msgpack-c/releases/download/cpp-$MSGPACK_VERSION/msgpack-$MSGPACK_VERSION.tar.gz" -O msgpack-$MSGPACK_VERSION.tar.gz;
-        tar -xvf msgpack-$MSGPACK_VERSION.tar.gz;
-        cp -rf msgpack-$MSGPACK_VERSION/include $MSGPACK_PREFIX/ ;
-        rm -rf msgpack-$MSGPACK_VERSION msgpack-$MSGPACK_VERSION.tar.gz ;
-    fi
   - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
         if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
           mkdir -p "$LIBUV_PREFIX";
