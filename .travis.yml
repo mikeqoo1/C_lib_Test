@@ -46,7 +46,7 @@ install:
     #      fi
     #  fi
     wget "https://github.com/libuv/libuv/archive/v1.18.0.tar.gz"
-    tar -zxvf v1.18.0.tar.gz
+    tar -xvf v1.18.0.tar.gz
     cd libuv-1.18.0
     sh autogen.sh
     ./configure
