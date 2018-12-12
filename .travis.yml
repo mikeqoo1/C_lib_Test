@@ -19,8 +19,8 @@ matrix:
       sudo: required
       env: USE_CC=gcc-6 USE_CXX=gcc-6 CMAKE_BIN=$CMAKE_PREFIX/bin/cmake
 before_install:
+    - sudo apt-get update -qq
     - sudo add-apt-repository ppa:acooks/libwebsockets6
-    - sudo apt-get update
     - sudo apt-get install libuv1.dev
 install:
   # libuv for Wookie
