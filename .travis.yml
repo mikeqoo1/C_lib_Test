@@ -48,7 +48,6 @@ install:
     #       (cd libuv-1.24.0 && ./autogen.sh && ./configure --prefix=$HOME/libuv && make && make install);
     #     fi
     - if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
-    
           if [ ! -e "$CMAKE_BIN" ]; then
             mkdir -p "$CMAKE_PREFIX";
             curl --insecure -L "$CMAKE_LINUX_URL" -o cmake-linux.sh ;
