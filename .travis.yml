@@ -50,8 +50,8 @@ install:
     cd libuv-1.18.0;
     sh autogen.sh;
     ./configure;
-    make -j4;
-    make install;
+    sudo make -j4;
+    sudo make install;
     ldconfig;
 
 # before_script:
