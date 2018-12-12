@@ -72,5 +72,7 @@ cache:
 
 
 script: CC=$ENV_CC make libuv
+        CC=$ENV_CC make all
+        CC=$ENV_CC make libuv2
 
 # CC=$ENV_CC make all &&
