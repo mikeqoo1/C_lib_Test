@@ -2,8 +2,13 @@ language: c
 
 env:
   global:
-    - LD_LIBRARY_PATH=$HOME/libuv/lib:$LD_LIBRARY_PATH
-    - C_INCLUDE_PATH=$HOME/libuv/include:$C_INCLUDE_PATH
+    - LIBUV_PREFIX=$HOME/prebuilt/lib ;
+    - LIBUV_VERSION=1.24.0
+    - CMAKE_PREFIX=$HOME/prebuilt/cmake ;
+    - CMAKE_LINUX_URL=https://cmake.org/files/v3.8/cmake-3.8.1-Linux-x86_64.sh ;
+    #- LD_LIBRARY_PATH=$HOME/libuv/lib:$LD_LIBRARY_PATH
+    #- C_INCLUDE_PATH=$HOME/libuv/include:$C_INCLUDE_PATH
+
 matrix:
   include:
     - os: linux
@@ -18,59 +23,64 @@ matrix:
       dist: trusty
       sudo: required
       env: USE_CC=gcc-6 USE_CXX=gcc-6 CMAKE_BIN=$CMAKE_PREFIX/bin/cmake
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      # - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
+      #   key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    packages:
+      - gcc-4.4
+      - gcc-4.4-multilib
+      - gcc-4.9
+      - gcc-4.9-multilib
+      - gcc-6
+      - gcc-6-multilib
+
 before_install:
     - sudo apt-get update -qq
-    - sudo add-apt-repository ppa:acooks/libwebsockets6
-    - sudo apt-get install libuv1.dev
+
 install:
-  # libuv for Wookie
-#   - if ! [ -f "$HOME/libuv/include/uv.h" ]; then
-#       curl -L https://github.com/libuv/libuv/archive/v1.24.0.tar.gz | tar xzf -;
-#       (cd libuv-1.24.0 && ./autogen.sh && ./configure --prefix=$HOME/libuv && make && make install);
-#     fi
-
-
-
-    #- if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
-    #      if [ ! -e "$CMAKE_BIN" ]; then
-    #        mkdir -p "$CMAKE_PREFIX";
-    #        curl --insecure -L "$CMAKE_LINUX_URL" -o cmake-linux.sh ;
-    #        bash cmake-linux.sh --skip-license --prefix=$CMAKE_PREFIX ;
-    #      fi
-    #  fi
-    # wget "https://github.com/libuv/libuv/archive/v1.18.0.tar.gz";
-    # tar -zxvf v1.18.0.tar.gz;
-    # cd libuv-1.18.0;
-    # sh autogen.sh;
-    # ./configure;
-    # sudo make -j4;
-    # sudo make install;
-    # ldconfig;
-
-    # before_script:
-    #   - REPO_DIR=$PWD;
-    #   - cd /tmp
-    #   - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
-    #         if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
-    #           mkdir -p "$LIBUV_PREFIX";
-    #           wget -c "http://dist.libuv.org/dist/v$LIBUV_VERSION/libuv-v$LIBUV_VERSION.tar.gz" -O libuv-v$LIBUV_VERSION.tar.gz;
-    #           tar -xvf libuv-v$LIBUV_VERSION.tar.gz;
-    #           cd libuv-v$LIBUV_VERSION ;
-    #           ./autogen.sh;
-    #           ./configure --prefix=$LIBUV_PREFIX --with-pic=yes --enable-shared=yes --enable-static=no;
-    #           make -j4 install -Wl ;
-    #           cd -;
-    #           rm -rf libuv-v$LIBUV_VERSION libuv-v$LIBUV_VERSION ;
-    #         fi
+    # libuv for Wookie
+    #   - if ! [ -f "$HOME/libuv/include/uv.h" ]; then
+    #       curl -L https://github.com/libuv/libuv/archive/v1.24.0.tar.gz | tar xzf -;
+    #       (cd libuv-1.24.0 && ./autogen.sh && ./configure --prefix=$HOME/libuv && make && make install);
     #     fi
-    #   - cd "$REPO_DIR";
+    - if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
+          if [ ! -e "$CMAKE_BIN" ]; then
+            mkdir -p "$CMAKE_PREFIX";
+            curl --insecure -L "$CMAKE_LINUX_URL" -o cmake-linux.sh ;
+            bash cmake-linux.sh --skip-license --prefix=$CMAKE_PREFIX ;
+          fi
+      fi
 
+before_script:
+  - REPO_DIR=$PWD;
+  - cd /tmp
+    - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
+        if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
+          mkdir -p "$LIBUV_PREFIX";
+          wget -c "http://dist.libuv.org/dist/v$LIBUV_VERSION/libuv-v$LIBUV_VERSION.tar.gz" -O libuv-v$LIBUV_VERSION.tar.gz;
+          tar -xvf libuv-v$LIBUV_VERSION.tar.gz;
+          cd libuv-v$LIBUV_VERSION ;
+          ./autogen.sh;
+          ./configure --prefix=$LIBUV_PREFIX --with-pic=yes --enable-shared=yes --enable-static=no;
+          make -j4 install;
+          cd -;
+          rm -rf libuv-v$LIBUV_VERSION libuv-v$LIBUV_VERSION ;
+        fi
+    fi
+  - cd "$REPO_DIR";
+
+after_success: CC=$ENV_CC make all && make libuvS && make libuvC
 
 cache:
+  apt: true
+  ccache: true
   directories:
-    - $HOME/libuv
+  - /home/travis/prebuilt
 
 
-script: CC=$ENV_CC make all && make libuvS && make libuvC
 
 # CC=$ENV_CC make all &&
