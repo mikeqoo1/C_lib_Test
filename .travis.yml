@@ -18,16 +18,16 @@ matrix:
       dist: trusty
       sudo: required
       env: USE_CC=gcc-6 USE_CXX=gcc-6 CMAKE_BIN=$CMAKE_PREFIX/bin/cmake
-# before_install:
-#     - sudo add-apt-repository ppa:acooks/libwebsockets6
-#     - sudo apt-get update
-#     - sudo apt-get install libuv1.dev
+before_install:
+    - sudo add-apt-repository ppa:acooks/libwebsockets6
+    - sudo apt-get update
+    - sudo apt-get install libuv1.dev
 install:
   # libuv for Wookie
-  - if ! [ -f "$HOME/libuv/include/uv.h" ]; then
-      curl -L https://github.com/libuv/libuv/archive/v1.6.1.tar.gz | tar xzf -;
-      (cd libuv-1.6.1 && ./autogen.sh && ./configure --prefix=$HOME/libuv && make && make install);
-    fi
+#   - if ! [ -f "$HOME/libuv/include/uv.h" ]; then
+#       curl -L https://github.com/libuv/libuv/archive/v1.24.0.tar.gz | tar xzf -;
+#       (cd libuv-1.24.0 && ./autogen.sh && ./configure --prefix=$HOME/libuv && make && make install);
+#     fi
 
 
 
