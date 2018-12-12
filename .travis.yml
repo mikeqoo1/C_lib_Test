@@ -59,7 +59,7 @@ install:
 
 before_script:
   - REPO_DIR=$PWD;
-  - cd /tmp
+  - cd /tmp;
   - if [ ! -e "$LIBUV_PREFIX/include/uv.h" ] || [ ! -e "$LIBUV_PREFIX/lib/libuv.so" ] ; then
         if [ "$TRAVIS_OS_NAME" == "linux" ] ; then
           mkdir -p "$LIBUV_PREFIX";
