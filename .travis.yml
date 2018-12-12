@@ -71,6 +71,6 @@ cache:
     - $HOME/libuv
 
 
-script: CC=$ENV_CC make all && make libuv && make libuv2
+script: CC=$ENV_CC make all && make libuvS && make libuvC
 
 # CC=$ENV_CC make all &&

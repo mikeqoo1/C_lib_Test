@@ -11,7 +11,7 @@ objects = cmap.o map.o mocha.o csplit.o timesub.o
 .PHONY: clean all debug
 	buildall builddebug
 	google bench utest check 
-	libuv libuv2
+	libuvS libuvC
 
 ifeq ($(mocha),1)
 C_FLAGS += -Dmocha
@@ -67,11 +67,11 @@ check: Check/main.c
 	gcc -o Check/check.out Check/main.c -lcheck $^
 
 # libuv的範例
-libuv: libuv/libuv_Server.c
-	gcc -o libuvS.out $(C_FLAGS) $^
+libuvS: libuv/libuv_Server.c
+	gcc -o libuvS.out -luv $^
 
-libuv2: libuv/libuv_Client.c
-	gcc -o libuvC.out $(C_FLAGS) $^
+libuvC: libuv/libuv_Client.c
+	gcc -o libuvC.out -luv $^
 
 # ini test...
 #ini:
