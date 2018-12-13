@@ -13,7 +13,7 @@ matrix:
       sudo: required
       env: USE_CC=gcc USE_CXX=g++ CMAKE_BIN=$CMAKE_PREFIX/bin/cmake CTEST_BIN=$CMAKE_PREFIX/bin/ctest
     # - os: linux
-    #   dist: trusty
+    #   dist: cosmic
     #   sudo: required
     #   env: USE_CC=gcc-4.9 USE_CXX=g++-4.9 CMAKE_BIN=$CMAKE_PREFIX/bin/cmake CTEST_BIN=$CMAKE_PREFIX/bin/ctest
     #   addons:
@@ -25,26 +25,6 @@ matrix:
     #         - gcc-4.9-multilib
     #         - g++-4.9
     #         - g++-4.9-multilib
-    # - os: linux
-    #   dist: trusty
-    #   sudo: required
-    #   env: COVERALLS_SERVICE_NAME=travis-ci GCOV_FLAGS='--coverage -fprofile-arcs -ftest-coverage' CMAKE_BIN=$CMAKE_PREFIX/bin/cmake CTEST_BIN=$CMAKE_PREFIX/bin/ctest
-    #   # COVERALLS_REPO_TOKEN is set in travis-ci
-    #   script:
-    #     - REPO_DIR=$PWD;
-    #     - USE_MSGPACK_ROOT=$MSGPACK_PREFIX ;
-    #     - if [ -e "$REPO_DIR/build" ]; then rm -rf "$REPO_DIR/build"; fi
-    #     - mkdir -p $REPO_DIR/build && cd $REPO_DIR/build ;
-    #     - $CMAKE_BIN .. "-DCMAKE_C_FLAGS=$GCOV_FLAGS" "-DCMAKE_CXX_FLAGS=$GCOV_FLAGS" "-DCMAKE_EXE_LINKER_FLAGS=$GCOV_FLAGS" -DCMAKE_BUILD_TYPE=Debug -DPROJECT_ENABLE_UNITTEST=ON -DPROJECT_ENABLE_SAMPLE=ON -DPROJECT_ENABLE_TOOLS=ON -DLIBUV_ROOT=$LIBUV_PREFIX -DMSGPACK_ROOT=$USE_MSGPACK_ROOT ;
-    #     - $CMAKE_BIN --build .
-    #   after_success:
-    #     - $CTEST_BIN . -V
-    #     # run tools for coverage
-    #     - timeout 10s ./tools/benchmark_shm_channel_recv 12345679 1024 4194304 > recv.log 2>&1 &
-    #     - timeout 10s ./tools/benchmark_shm_channel_send 12345679 1024 4194304 > send.log 2>&1
-    #     - ./tools/show_shm_channel 12345679 1 16 > /dev/null
-    #     - pip install --user cpp-coveralls
-    #     - coveralls -r .. --gcov-options '\-lp' -e 3rd_party -e sample -e test -e tools -e build/CMakeFiles
 
 before_install:
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update; fi
@@ -124,4 +104,4 @@ install:
 # env:
 #  - ENV_CC=gcc
 
-# script: CC=$ENV_CC make all
+script: CC=$USE_CC make all  && make libuvS
