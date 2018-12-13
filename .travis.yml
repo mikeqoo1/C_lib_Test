@@ -34,4 +34,4 @@ install:
     - sudo apt-get install libuv1-dev;
 
 
-script: CC=$USE_CC make all && gcc -I/usr/lib -o libuvC.out /usr/local/lib/libuv.a libuv/libuv_Client.c
+script: CC=$USE_CC make all && gcc -I/usr/lib -o libuvC.out /usr/lib/libuv.a libuv/libuv_Client.c
