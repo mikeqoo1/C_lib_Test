@@ -10,7 +10,7 @@ CI_FLAGS = -lm -lpthread -Wall
 objects = cmap.o map.o mocha.o csplit.o timesub.o
 .PHONY: clean all debug
 	buildall builddebug
-	google bench utest check 
+	google bench utest check
 	libuvS libuvC
 
 ifeq ($(mocha),1)
