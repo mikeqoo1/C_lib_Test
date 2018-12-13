@@ -2,16 +2,17 @@ language: c
 
 env:
   global:
-    - LIBUV_PREFIX=$HOME/prebuilt/libuv-1.22.0 ;
-    - LIBUV_VERSION=1.22.0
-    - CMAKE_PREFIX=$HOME/prebuilt/cmake ;
-    - CMAKE_LINUX_URL=https://cmake.org/files/v3.11/cmake-3.11.4-Linux-x86_64.sh ;
+    # - LIBUV_PREFIX=$HOME/prebuilt/libuv-1.22.0 ;
+    # - LIBUV_VERSION=1.22.0
+    # - CMAKE_PREFIX=$HOME/prebuilt/cmake ;
+    # - CMAKE_LINUX_URL=https://cmake.org/files/v3.11/cmake-3.11.4-Linux-x86_64.sh ;
 matrix:
   include:
     - os: linux
       dist: cosmic
       sudo: required
-      env: USE_CC=gcc USE_CXX=g++ CMAKE_BIN=$CMAKE_PREFIX/bin/cmake CTEST_BIN=$CMAKE_PREFIX/bin/ctest
+      env: USE_CC=gcc USE_CXX=g++ 
+      # CMAKE_BIN=$CMAKE_PREFIX/bin/cmake CTEST_BIN=$CMAKE_PREFIX/bin/ctest
     # - os: linux
     #   dist: cosmic
     #   sudo: required
