@@ -4,8 +4,7 @@
         "type_traits": "c",
         "stdlib.h": "c",
         "zlog.h": "c",
-        "switchs.h": "c"
-        "limits": "c",
+        "switchs.h": "c",
         "initializer_list": "c"
     }
 }
