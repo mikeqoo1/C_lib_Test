@@ -73,6 +73,9 @@ libuvS: libuv/libuv_Server.c
 libuvC: libuv/libuv_Client.c
 	gcc -o libuvC.out -luv $^
 
+sheet: clib/sheet.c sheet.o test_sheet.c
+	gcc -c clib/sheet.c
+	gcc test_sheet.c -I clib sheet.o -o sheet.out
 # ini test...
 #ini:
 #	gcc -c clib/dictionary.c -I clib
