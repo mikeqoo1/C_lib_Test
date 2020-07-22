@@ -38,7 +38,7 @@ int strsplit(const char *str, char *ans[], const char *delimiter)
 
 int find_the_rest(const char *str, const char *delimiter)
 {
-    int TorF;
+    //int TorF;
     int i;
     size_t len = strlen(str);
     size_t dellen = strlen(delimiter);

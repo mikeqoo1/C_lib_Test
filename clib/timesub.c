@@ -23,7 +23,7 @@ long timeSubtract(long now, long beforetime)
 long miketime(char *now, char *beforetime)
 {
     // printf("%s - %s\n", now, beforetime);
-    int i = 0;
+    //int i = 0;
     long hour;
     long min;
     long sec;
