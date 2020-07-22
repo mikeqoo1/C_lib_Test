@@ -76,6 +76,11 @@ libuvC: libuv/libuv_Client.c
 sheet: clib/sheet.c sheet.o test_sheet.c
 	gcc -c clib/sheet.c
 	gcc test_sheet.c -I clib sheet.o -o sheet.out
+
+# Regular Expression
+reg: regex/regex.c
+	gcc -o regex/regex.out regex/regex.c
+
 # ini test...
 #ini:
 #	gcc -c clib/dictionary.c -I clib
