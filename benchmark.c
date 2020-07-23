@@ -1,6 +1,6 @@
 #include "csplit.h"
 #include "timesub.h"
-#include "zlog.h"
+#include "log.h"
 #include <stdio.h>
 #include <uv.h>
 
@@ -8,13 +8,17 @@
 #define RUN_CNT (uint64_t)1000000
 #endif
 uint64_t start, end, diff, per;
-int rc;
-zlog_category_t *logger;
 
 int main(int argc, char **argv)
 {
-    rc = zlog_init("zlogconfig.conf");
-    logger = zlog_get_category("my_dog");
+    int ok;
+    ok = log_init();
+    if (ok == 0) {
+        logger = getLogger(2);
+    } else {
+        printf("取得log指標失敗\n");
+        return 0;
+    }
     char testdata[] = "恭喜\r\n發財！！";
     char *now = "095604";
     long asd = 95550L;
@@ -32,7 +36,7 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "strsplit => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
+    LOG_DEBUG(logger, "strsplit => %llu run: %llu[ns] (%llu ns/op)\033[0m", RUN_CNT, diff, per);
 
     start = uv_hrtime();
     for (iii = 0; iii < 1000000; iii++)
@@ -40,7 +44,7 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "timeSubtract => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
+    LOG_DEBUG(logger, "timeSubtract => %llu run: %llu[ns] (%llu ns/op)\033[0m", RUN_CNT, diff, per);
 
     start = uv_hrtime();
     for (iii = 0; iii < 1000000; iii++)
@@ -48,7 +52,7 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "miketime => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
+    LOG_DEBUG(logger, "miketime => %llu run: %llu[ns] (%llu ns/op)\033[0m", RUN_CNT, diff, per);
 
     start = uv_hrtime();
     for (iii = 0; iii < 1000000; iii++)
@@ -56,6 +60,6 @@ int main(int argc, char **argv)
     end = uv_hrtime();
     diff = end - start;
     per = diff / RUN_CNT;
-    zlog_debug(logger, "miketime2 => %llu run: %llu[ns] (%llu ns/op)", RUN_CNT, diff, per);
+    LOG_DEBUG(logger, "miketime2 => %llu run: %llu[ns] (%llu ns/op)\033[0m", RUN_CNT, diff, per);
     return 0;
 }

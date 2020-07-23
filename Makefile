@@ -51,8 +51,8 @@ $(objects): %.o: %.c
 	gcc -c -I clib $(C_FLAGS) $< -o $@ -g
 
 # clib的BenchMark
-bench: benchmark.c csplit.o timesub.o
-	gcc -I clib -o bench.out $(C_FLAGS) -O3 $^
+bench: benchmark.c $(objects)
+	gcc -I clib -o bench.out $(LIB) $(C_FLAGS) -O3 $^
 
 # clib的單元測試
 utest: Google/unittest.c $(objects)
