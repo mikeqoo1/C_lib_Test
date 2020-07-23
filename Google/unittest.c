@@ -1,6 +1,6 @@
 #include "cmap.h"
 #include "csplit.h"
-#include "zlog.h"
+#include "log.h"
 #include "timesub.h"
 #include <setjmp.h>
 #include <stdarg.h>
@@ -8,24 +8,20 @@
 #include <google/cmockery.h>
 #include <stdio.h>
 
-int rc;
-zlog_category_t *logger;
 void test_cmap(void **state)
 {
-    logger = zlog_get_category("my_test");
     intptr_t value;
-    zlog_debug(logger, "開始測試cmap");
+    LOG_DEBUG(logger, "開始測試cmap\033[0m");
     if (hcreate(50) == 0) store("black", "黑色");
     if (fetch("black", &value)) assert_string_equal((char *)value, "黑色");
     delete ("black");
     assert_string_equal((char *)value, "");
-    zlog_debug(logger, "結束測試cmap");
+    LOG_DEBUG(logger, "結束測試cmap\033[0m");
 }
 
 void test_csplit(void **state)
 {
-    logger = zlog_get_category("my_test");
-    zlog_debug(logger, "開始測試csplit");
+    LOG_DEBUG(logger, "開始測試csplit\033[0m");
     int i_csp = 0;
     //增加複雜的case
     char str0[] = "Passenger | Let Her Go\r\nWell you only need the light when it's burning "
@@ -55,35 +51,40 @@ void test_csplit(void **state)
     strsplit(str5, ans3, "\r\n");
     assert_string_equal(ans3[0], "Only know you love her when you let her go");
     assert_string_equal(ans3[1], "And you let her go");
-    zlog_debug(logger, "結束測試csplit");
+    LOG_DEBUG(logger, "結束測試csplit\033[0m");
 }
 
 void test_time(void **state)
 {
-    logger = zlog_get_category("my_test");
-    zlog_debug(logger, "開始測試miketime");
+    LOG_DEBUG(logger, "開始測試miketime\033[0m");
     char *now = "095604";
     char *qwe = "095550";
     long A = 0L;
     A = miketime(now, qwe);
     assert_int_equal(A, 14);
-    zlog_debug(logger, "結束測試miketime");
+    LOG_DEBUG(logger, "結束測試miketime\033[0m");
 
-    zlog_debug(logger, "開始測試timeSubtract");
+    LOG_DEBUG(logger, "開始測試timeSubtract\033[0m");
     A = timeSubtract(atol(now), atol(qwe));
     assert_int_equal(A, 14);
-    zlog_debug(logger, "結束測試timeSubtract");
+    LOG_DEBUG(logger, "結束測試timeSubtract\033[0m");
 
-    zlog_debug(logger, "開始測試miketime2");
+    LOG_DEBUG(logger, "開始測試miketime2\033[0m");
     A = miketime2(now, qwe);
     assert_int_equal(A, 14);
-    zlog_debug(logger, "結束測試miketime2");
+    LOG_DEBUG(logger, "結束測試miketime2\033[0m");
 }
 
 int main(int argc, char *argv[])
 {
-    rc = zlog_init("zlogconfig.conf");
-    logger = zlog_get_category("my_test");
+    int ok;
+    ok = log_init();
+    if (ok == 0) {
+        logger = getLogger(3);
+    } else {
+        printf("取得log指標失敗\n");
+        return 0;
+    }
     const UnitTest tests[] = {
         unit_test(test_cmap),
         unit_test(test_csplit),

@@ -7,7 +7,7 @@ MYSQL = `mysql_config --include --libs`
 
 C_FLAGS = -lcheck -lm -lzlog -lpthread -luv -Wall
 CI_FLAGS = -lm -lpthread -Wall
-objects = cmap.o map.o mocha.o csplit.o timesub.o
+objects = cmap.o map.o mocha.o csplit.o timesub.o log.o
 .PHONY: clean all debug
 	buildall builddebug
 	google bench utest check
@@ -43,16 +43,16 @@ builddebug: main.c $(objects)
 
 buildall: CI_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
 buildall: main.c $(objects)
-	gcc -I clib -o main.out $(CI_FLAGS) -O3 $^
+	gcc -I clib -o main.out $(C_FLAGS) $(CI_FLAGS) -O3 $^
 
 # 只make clib
 lib: $(objects)
 $(objects): %.o: %.c
-	gcc -c -I clib $< -o $@ -g
+	gcc -c -I clib $(C_FLAGS) $< -o $@ -g
 
 # clib的BenchMark
-bench: benchmark.c csplit.o timesub.o
-	gcc -I clib -o bench.out $(C_FLAGS) -O3 $^
+bench: benchmark.c $(objects)
+	gcc -I clib -o bench.out $(LIB) $(C_FLAGS) -O3 $^
 
 # clib的單元測試
 utest: Google/unittest.c $(objects)

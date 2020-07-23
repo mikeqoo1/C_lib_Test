@@ -4,6 +4,7 @@
 #include "mocha.h"
 #include "switchs.h"
 #include "timesub.h"
+#include "log.h"
 #include <stdio.h>
 
 void SWITCH(char **argv);
@@ -45,8 +46,15 @@ void PokeMonNew(struct PokeMon *obj, size_t size)
 #endif
 int main(int argc, char **argv)
 {
+    int ok;
+    ok = log_init();
+    if (ok == 0) {
+        logger = getLogger(1);
+    } else {
+        printf("取得log指標失敗\n");
+        return 0;
+    }
     printf("Hello, World!\n");
-
 //----mocha
 #ifdef mocha
     printf("----mocha的範例----\n");
@@ -66,12 +74,14 @@ int main(int argc, char **argv)
         printf("value: %d\n", *val);
     } else {
         printf("value not found\n");
+        LOG_DEBUG(logger, "value not found\033[0m");
     }
     int *val2 = map_get(&m, "AAA");
     if (val2) {
         printf("value: %d\n", *val);
     } else {
         printf("value not found\n");
+        LOG_DEBUG(logger, "value not found\033[0m");
     }
     printf("----git上別人的map分隔----\n");
 #endif
@@ -93,11 +103,16 @@ int main(int argc, char **argv)
     store("black", "黑色");
     store("orange", "橘色"); //會覆蓋前面的value
     store("123456", (void *)555777888999);
-    if (fetch("123456", &value))
+    if (fetch("123456", &value)) {
         printf("123456 has value %d\n", (int)value);
-    else
+        LOG_FATAL(logger, "123456 has value %d\033[0m", (int)value);
+        LOG_ERROR(logger, "123456 has value %d\033[0m", (int)value);
+        LOG_WARN(logger, "123456 has value %d\033[0m", (int)value);
+        LOG_INFO(logger, "123456 has value %d\033[0m", (int)value);
+        LOG_DEBUG(logger, "123456 has value %d\033[0m", (int)value);
+    } else {
         printf("123456 is not in table\n");
-
+    }
     printf("印出結果\n");
     for (i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
         if (fetch(keys[i], &value))
