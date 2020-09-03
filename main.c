@@ -6,8 +6,11 @@
 #include "timesub.h"
 #include "log.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void SWITCH(char **argv);
+void printIntArr(int *arr, int arrSize);
+int cmpfunc(const void *a, const void *b);
 
 #ifdef mocha
 int test1()
@@ -219,6 +222,11 @@ int main(int argc, char **argv)
 
     SWITCH(argv);
 
+    int arr[] = {56, 45, 48, 12, 4, 3, 4568, 45, 48, 213, 54, 32, 4, 8, 9, 6, 4, 23, 0, -2, 56};
+    printIntArr(arr, (sizeof(arr) / sizeof(int)));
+    qsort(arr, sizeof(arr) / sizeof(int), sizeof(int), cmpfunc); //Quick sort
+    printIntArr(arr, (sizeof(arr) / sizeof(int)));
+
     return 0;
 }
 
@@ -246,3 +254,14 @@ void SWITCH(char **argv)
     }
     switchs_end;
 }
+
+void printIntArr(int *arr, int arrSize)
+{
+    int i = 0;
+    for (i = 0; i < arrSize; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int cmpfunc(const void *a, const void *b) { return *(int *)a - *(int *)b; }
