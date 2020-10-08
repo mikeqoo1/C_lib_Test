@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+
 void SWITCH(char **argv);
 void printIntArr(int *arr, int arrSize);
 int cmpfunc(const void *a, const void *b);
@@ -233,7 +237,7 @@ int main(int argc, char **argv)
 void SWITCH(char **argv)
 {
     char *argvtemp = "TEST";
-    if (argv[1] != NULL) {
+    if (argv[1] != 0) {
         argvtemp = argv[1];
     }
     switchs(argvtemp)

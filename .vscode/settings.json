@@ -5,6 +5,27 @@
         "stdlib.h": "c",
         "zlog.h": "c",
         "switchs.h": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "array": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "cstddef": "cpp",
+        "cstdio": "cpp",
+        "cwchar": "cpp",
+        "vector": "cpp",
+        "functional": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "tuple": "cpp",
+        "random": "cpp",
+        "fstream": "cpp",
+        "new": "cpp",
+        "stdexcept": "cpp",
+        "system_error": "cpp",
+        "typeinfo": "cpp",
+        "utility": "cpp",
+        "string": "cpp"
     }
 }

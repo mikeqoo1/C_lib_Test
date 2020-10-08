@@ -43,7 +43,7 @@ builddebug: main.c $(objects)
 
 buildall: CI_FLAGS += -Dmocha -Dgitmap -Dcmap -Dcsplit
 buildall: main.c $(objects)
-	gcc -I clib -o main.out $(C_FLAGS) $(CI_FLAGS) -O3 $^
+	gcc -I clib $^ -o main.out $(C_FLAGS) $(CI_FLAGS) -O3
 
 # 只make clib
 lib: $(objects)
@@ -56,22 +56,22 @@ bench: benchmark.c $(objects)
 
 # clib的單元測試
 utest: Google/unittest.c $(objects)
-	gcc -o Google/unittest.out -I clib $(INC) $(LIB) $(C_FLAGS) -lcmockery $^
+	gcc $^ -o Google/unittest.out -I clib $(INC) $(LIB) $(C_FLAGS) -lcmockery
 
 # google版本test的範例
 google: Google/google.c
-	gcc -o Google/google.out $(INC) $(LIB) -lcmockery $^
+	gcc $^ -o Google/google.out $(INC) $(LIB) -lcmockery
 
 # check版本test的範例
 check: Check/main.c
-	gcc -o Check/check.out Check/main.c -lcheck $^
+	gcc $^ -o Check/check.out Check/main.c -lcheck
 
 # libuv的範例
 libuvS: libuv/libuv_Server.c
-	gcc -o libuvS.out -luv $^
+	gcc $^ -o libuvS.out -luv
 
 libuvC: libuv/libuv_Client.c
-	gcc -o libuvC.out -luv $^
+	gcc $^ -o libuvC.out -luv
 
 sheet: clib/sheet.c sheet.o test_sheet.c
 	gcc -c clib/sheet.c

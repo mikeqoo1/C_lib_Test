@@ -1,9 +1,13 @@
 #include "log.h"
 
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+
 int log_init()
 {
     int rc;
-    rc = zlog_init("/home/Projects/C_lib_Test/zlogconfig.conf");
+    rc = zlog_init("/Projects/C_lib_Test/zlogconfig.conf");
     if (rc) {
         printf("初始化log設定檔,失敗\n");
         return -1;

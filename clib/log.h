@@ -1,6 +1,6 @@
 #pragma once
 #include "zlog.h"
-
+#include <stddef.h>
 zlog_category_t *logger;
 
 #define ESC_START "\033["
