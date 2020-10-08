@@ -1,5 +1,5 @@
 {
-    "name": "C_lib_Test",
+    "name": "ClibTest",
     "scripts": {
         "build-test": "make utest",
         "test": "./Google/unittest.out",
